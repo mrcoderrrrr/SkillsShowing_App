@@ -32,7 +32,7 @@
         android:layout_marginBottom="292dp"
         android:gravity="center"
         android:text="Demo App"
-        android:textColor="#2196F3"
+        android:textColor="#3F51B5"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,10 +3,12 @@ package com.example.demoapps
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Window
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
+import com.example.demoapps.Activity.login_activity
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivitySplashScreenBinding
 
@@ -28,7 +30,7 @@ class splash_screen : AppCompatActivity() {
 
         //open mainactivity using handler
         android.os.Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, login_activity::class.java)
             startActivity(intent)
             finish()
         }, 3000)
