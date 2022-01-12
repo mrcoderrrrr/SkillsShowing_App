@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    app:barrierAllowsGoneWidgets="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".splash_screen">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:src="@drawable/ic_baseline_camera_24"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="175dp"
+        android:layout_marginEnd="119dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_logo_txt"
+        android:layout_width="195dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="292dp"
+        android:gravity="center"
+        android:text="Demo App"
+        android:textColor="#2196F3"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
