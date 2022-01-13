@@ -1,6 +1,7 @@
 package com.example.demoapps.Activity
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +22,7 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun setSharePreference() {
-        val SharedPreference = this.getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
+        val SharedPreference = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         val editor = SharedPreference.edit()
         editor.putString("Name", dataBinding.teName.text.toString())
         editor.putString("Email", dataBinding.teEmail.text.toString())
@@ -34,6 +35,12 @@ class SignUp : AppCompatActivity() {
         setSignUpData()
         Log.d("Data", SharedPreference.getString("Email","").toString())
 
+        setLoginScreen()
+
+    }
+
+    private fun setLoginScreen() {
+        val intent = Intent(this, Logi::class.java)
     }
 
     private fun setSignUpData() {
