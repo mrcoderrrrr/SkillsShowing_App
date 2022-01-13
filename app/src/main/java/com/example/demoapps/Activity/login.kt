@@ -24,29 +24,22 @@ class login_activity : AppCompatActivity() {
     }
 
     private fun LoginButton() {
-        val email = databinding.teEmail.text.toString()
-        val password = databinding.tePassword.text.toString()
+        val email = databinding.teEmail.text
+        val password = databinding.tePassword.text
         databinding.butLogin.setOnClickListener {
-            if (email.toString().isEmpty()){
-                Log.d("Emailtxt",email)
+            if (email!!.isEmpty()){
+                Log.d("Emailtxt", email.toString())
                 Log.d("Emaildata",databinding.teEmail.text.toString())
              databinding.teEmail.setError("Username is mandatory")
             }
-            else if (password.isEmpty()) {
+            else if (password!!.isEmpty()) {
                 databinding.tePassword.setError("Password is manadatory")
             }
             else {
-                Log.d("Emailtxt1",email)
-                Log.d("Emaildata1",databinding.teEmail.text.toString())
-                Log.d("Passtxt1",password)
-                Log.d("Passdata1",databinding.tePassword.text.toString())
-                if (email.equals("admin") && password.equals("admin")) {
-                    Log.d("Emailtxt",email)
-                    Log.d("Emaildata",databinding.teEmail.text.toString())
-                    Log.d("Passtxt",password)
-                    Log.d("Passdata",databinding.tePassword.text.toString())
+                if (email.toString().equals("admin") && password.toString().equals("admin")) {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                     Toast.makeText(this, "Log in Sucessfull", Toast.LENGTH_LONG).show()
                 }
                 else{
