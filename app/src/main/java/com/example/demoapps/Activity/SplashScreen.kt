@@ -3,20 +3,17 @@ package com.example.demoapps
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Window
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.setContentView
 import com.example.demoapps.Activity.login_activity
-import com.example.demoapps.R
-import com.example.demoapps.databinding.ActivitySplashScreenBinding
+import com.example.demoapps.databinding.ActivitySplashscreenBinding
 
 class splash_screen : AppCompatActivity() {
-    lateinit var databinding : ActivitySplashScreenBinding
+    lateinit var databinding : ActivitySplashscreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        databinding=DataBindingUtil.setContentView(this,R.layout.activity_splash_screen)
+        databinding=DataBindingUtil.setContentView(this,R.layout.activity_splashscreen)
         //animate logo
         databinding.ivLogo.animate().apply {
             duration = 3000
