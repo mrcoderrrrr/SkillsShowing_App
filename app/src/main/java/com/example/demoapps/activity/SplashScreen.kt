@@ -6,28 +6,28 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.demoapps.Activity.login_activity
+import com.example.demoapps.activity.Login
 import com.example.demoapps.databinding.ActivitySplashscreenBinding
 
-class splash_screen : AppCompatActivity() {
-    lateinit var databinding : ActivitySplashscreenBinding
+class SplashScreen : AppCompatActivity() {
+    lateinit var dataBinding: ActivitySplashscreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        databinding=DataBindingUtil.setContentView(this,R.layout.activity_splashscreen)
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_splashscreen)
         //animate logo
-        databinding.ivLogo.animate().apply {
+        dataBinding.ivLogo.animate().apply {
             duration = 3000
             rotationYBy(360f)
         }.start()
 
         //animate logo txt
-        val tv_animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-        databinding.tvLogoTxt.startAnimation(tv_animation)
+        val tvAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        dataBinding.tvLogoTxt.startAnimation(tvAnimation)
 
 
-        //open mainactivity using handler
+        //open Mainactivity using handler
         android.os.Handler().postDelayed({
-            val intent = Intent(this, login_activity::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         }, 3000)

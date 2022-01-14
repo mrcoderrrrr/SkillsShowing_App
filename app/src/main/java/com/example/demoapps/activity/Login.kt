@@ -1,4 +1,4 @@
-package com.example.demoapps.Activity
+package com.example.demoapps.activity
 
 import android.content.Context
 import android.content.Intent
@@ -10,21 +10,21 @@ import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivityLoginBinding
 
-class login_activity : AppCompatActivity() {
-    lateinit var dataBinding: ActivityLoginBinding
+class Login : AppCompatActivity() {
+    private lateinit var dataBinding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        val SharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
-        val editor = SharedPreferences.edit()
+        val sharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         //OnClick
-        setClick(SharedPreferences,editor)
+        setClick(sharedPreferences)
     }
 
-    private fun setClick(SharedPreferences: SharedPreferences, editor: SharedPreferences.Editor) {
+    private fun setClick(sharedPreferences: SharedPreferences) {
         dataBinding.butLogin.setOnClickListener {
-            if (validate(SharedPreferences,editor)){
+            if (validate(sharedPreferences)){
+                return@setOnClickListener
             }
         }
         dataBinding.tvSignupTxt.setOnClickListener{
@@ -32,21 +32,21 @@ class login_activity : AppCompatActivity() {
         }
     }
 
-    private fun validate(SharedPreferences: SharedPreferences, editor: SharedPreferences.Editor): Boolean {
+    private fun validate(sharedPreferences: SharedPreferences): Boolean {
         if (dataBinding.teEmail.text.toString().isEmpty()) {
             dataBinding.teEmail.setError("Username is mandatory")
         } else if (dataBinding.tePassword.text.toString().isEmpty()) {
-            dataBinding.tePassword.setError("Password is manadatory")
+            dataBinding.tePassword.setError("Password is mandatory")
         }
         else if (dataBinding.teEmail.text.toString().isEmpty() || dataBinding.tePassword.text.toString().isEmpty() ){
             dataBinding.teEmail.setError("Username is mandatory")
-            dataBinding.tePassword.setError("Password is manadatory")
+            dataBinding.tePassword.setError("Password is mandatory")
         }
         else {
-            if (dataBinding.teEmail.text.toString().equals(SharedPreferences.getString("Email"," ")) && dataBinding.tePassword.text.toString().equals(SharedPreferences.getString("Password",""))) {
+            if (dataBinding.teEmail.text.toString()==(sharedPreferences.getString("Email"," ")) && dataBinding.tePassword.text.toString()==(sharedPreferences.getString("Password",""))) {
                 setHome()
             } else {
-                Toast.makeText(this, "Log in Faild", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Log in failed", Toast.LENGTH_LONG).show()
             }
         }
         return true
@@ -56,7 +56,7 @@ class login_activity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-        Toast.makeText(this, "Log in Sucessfull", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Log in Successful", Toast.LENGTH_LONG).show()
     }
 
     private fun setSignUp() {
