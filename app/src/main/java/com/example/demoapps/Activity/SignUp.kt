@@ -1,5 +1,6 @@
 package com.example.demoapps.Activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -40,7 +41,9 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun setLoginScreen() {
-        val intent = Intent(this, Logi::class.java)
+        val intent = Intent(this, com.example.demoapps.Activity.login_activity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun setSignUpData() {
