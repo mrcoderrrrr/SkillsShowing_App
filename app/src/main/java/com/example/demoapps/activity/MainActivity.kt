@@ -1,7 +1,9 @@
 package com.example.demoapps.activity
 
 import android.os.Bundle
-import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -12,23 +14,76 @@ import com.example.demoapps.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityMainBinding
     lateinit var toogle: ActionBarDrawerToggle
+    private var clicked = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-       setClick()
+        setClick()
     }
 
     private fun setClick() {
         //Navigation menu
-       // navMenu()
+        // navMenu()
         //Floating Button
         floatbtn()
 
     }
 
     private fun floatbtn() {
+        dataBinding.ivAdd.setOnClickListener {
+            onAddButtonClick()
+        }
+        dataBinding.ivAdduser.setOnClickListener {
+            Toast.makeText(this, "Add User", Toast.LENGTH_LONG).show()
+        }
+        dataBinding.ivUserList.setOnClickListener {
+            Toast.makeText(this, "User List", Toast.LENGTH_LONG).show()
+        }
+    }
 
+    private fun onAddButtonClick() {
+        setVisibility(clicked)
+        setAnimation(clicked)
+        clicked = !clicked
+    }
+
+    private fun setAnimation(clicked: Boolean) {
+        AnimationUtils.loadAnimation(this,R.anim.rotate_open)
+        AnimationUtils.loadAnimation(this,R.anim.rotate_close)
+        AnimationUtils.loadAnimation(this,R.anim.from_bottom)
+        AnimationUtils.loadAnimation(this,R.anim.to_bottom)
+        if (!clicked) {
+            dataBinding.ivAdduser.startAnimation(
+                AnimationUtils.loadAnimation(
+                    this,
+                    R.anim.from_bottom
+                )
+            )
+            dataBinding.ivUserList.startAnimation(
+                AnimationUtils.loadAnimation(
+                    this,
+                    R.anim.from_bottom
+                )
+            )
+            dataBinding.ivAdd.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotate_open))
+        }
+        else{
+            dataBinding.ivAdduser.startAnimation( AnimationUtils.loadAnimation(this,R.anim.to_bottom))
+            dataBinding.ivUserList.startAnimation( AnimationUtils.loadAnimation(this,R.anim.to_bottom))
+            dataBinding.ivAdd.startAnimation( AnimationUtils.loadAnimation(this,R.anim.rotate_close))
+        }
+    }
+
+    private fun setVisibility(clicked: Boolean) {
+        if (!clicked) {
+            dataBinding.ivAdduser.visibility = View.VISIBLE
+            dataBinding.ivUserList.visibility=View.VISIBLE
+        }
+        else{
+            dataBinding.ivAdduser.visibility = View.INVISIBLE
+            dataBinding.ivUserList.visibility=View.INVISIBLE
+        }
     }
 
 //    private fun navMenu() {
