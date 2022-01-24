@@ -1,6 +1,7 @@
 package com.example.demoapps.activity
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setClick() {
         //Navigation menu
-        // navMenu()
+         navMenu()
         //Floating Button
         floatbtn()
 
@@ -86,30 +87,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun navMenu() {
-//        toogle = ActionBarDrawerToggle(this, dataBinding.dlMain, R.string.open, R.string.close)
-//        dataBinding.dlMain.addDrawerListener(toogle)
-//        toogle.syncState()
-//
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//
-//        dataBinding.nvMenu.setNavigationItemSelectedListener {
-//            when (it.itemId) {
-//
-//                R.id.nav_home -> Toast.makeText(this, "Home", Toast.LENGTH_LONG).show()
-//                R.id.nav_contact -> Toast.makeText(this, "About Us", Toast.LENGTH_LONG).show()
-//                R.id.nav_about -> Toast.makeText(this, "Contact Us", Toast.LENGTH_LONG).show()
-//
-//            }
-//            true
-//        }
-//    }
+    private fun navMenu() {
+        toogle = ActionBarDrawerToggle(this, dataBinding.dlmain, R.string.open, R.string.close)
+        dataBinding.dlmain.addDrawerListener(toogle)
+        toogle.syncState()
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if(toogle.onOptionsItemSelected(item)){
-//
-//            return true
-//        }
-//            return super.onOptionsItemSelected(item)
-//    }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        dataBinding.navMenu.setNavigationItemSelectedListener {
+            when (it.itemId) {
+
+                R.id.nav_home -> Toast.makeText(this, "Home", Toast.LENGTH_LONG).show()
+                R.id.nav_contact -> Toast.makeText(this, "About Us", Toast.LENGTH_LONG).show()
+                R.id.nav_about -> Toast.makeText(this, "Contact Us", Toast.LENGTH_LONG).show()
+
+            }
+            true
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toogle.onOptionsItemSelected(item)){
+
+            return true
+        }
+            return super.onOptionsItemSelected(item)
+    }
 }
