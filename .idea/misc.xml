@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.21979166666666666" />
         <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_camera_24.xml" value="0.21979166666666666" />
+        <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_format_list_bulleted_24.xml" value="0.21979166666666666" />
         <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.21979166666666666" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_main.xml" value="0.18704710144927536" />
