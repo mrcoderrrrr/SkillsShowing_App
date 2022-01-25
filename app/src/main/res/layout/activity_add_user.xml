@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:barrierAllowsGoneWidgets="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:context=".activity.SignUp"
+        tools:context=".activity.AddUser"
         >
 
-        <Button
-            android:id="@+id/btn_signup"
-            android:layout_width="128dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="40dp"
-            android:text="Sign Up"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ci_profile"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/ic_baseline_person_24"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tl_confirm_password" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_signup_txt" />
 
         <RadioGroup
             android:id="@+id/rg_gender"
@@ -54,14 +57,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="117dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="118dp"
             android:gravity="center_horizontal"
-            android:text="Demo App"
+            android:text="Profile"
             android:textColor="#3F51B5"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,26 +86,6 @@
             app:layout_constraintTop_toBottomOf="@id/tl_email" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tl_confirm_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="302dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="56dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tl_password">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/te_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Confirm Password" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tl_birthdate"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="302dp"
@@ -122,8 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="DOB"
-                android:textAllCaps="false"
-                />
+                android:textAllCaps="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -137,13 +119,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_signup_txt">
+            app:layout_constraintTop_toBottomOf="@+id/ci_profile">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/te_name"
+                android:id="@+id/te_fullName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Full name" />
+                android:hint="First name" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -160,31 +142,25 @@
             app:layout_constraintTop_toBottomOf="@+id/tl_name">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/te_email"
+                android:id="@+id/te_lastName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Email" />
+                android:hint="Last Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tl_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="302dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="56dp"
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="159dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="117dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="135dp"
+            android:layout_marginBottom="47dp"
+            android:text="Submit"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tl_birthdate">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/te_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Password" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/tl_birthdate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -12,11 +13,9 @@ import com.example.demoapps.databinding.ActivitySignupBinding
 
 class SignUp : AppCompatActivity() {
     private lateinit var dataBinding: ActivitySignupBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
-
         setClick()
     }
 
@@ -44,11 +43,17 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun setSignUpData() {
+        dataBinding.teBirthdate.setOnClickListener{
+        DatePicker()
+        }
+    }
+
+    private fun DatePicker() {
 
     }
 
     private fun setClick() {
-        dataBinding.butSignup.setOnClickListener {
+        dataBinding.btnSignup.setOnClickListener {
             if (validate()) {
                 setSharePreference()
             }
@@ -56,21 +61,23 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun validate(): Boolean {
-        if (dataBinding.teName.text.toString().isEmpty()) {
-            dataBinding.teName.setError("Name is Mandatory")
-        } else if (dataBinding.teEmail.text.toString().isEmpty()) {
-            dataBinding.teEmail.setError("Email is Mandatory")
-        } else if (dataBinding.teBirthdate.text.toString().isEmpty()) {
-            dataBinding.teBirthdate.setError("Birthdate is Mandatory")
-        } else if (dataBinding.tePassword.text.toString().isEmpty()) {
-            dataBinding.tePassword.setError("Password is Mandatory")
-        } else if (dataBinding.teConfirmPassword.text.toString().isEmpty()) {
-            dataBinding.teConfirmPassword.setError("Password is Mandatory")
-        } else if (!dataBinding.rbutMale.isChecked && !dataBinding.rbutFemale.isChecked) {
-            dataBinding.tvGenderTxt.setError("Gender selection are mandatory")
-        } else {
-            Toast.makeText(this, "Details Are Submitted", Toast.LENGTH_LONG).show()
-        }
-        return true
+            if (dataBinding.teName.text.toString().isEmpty()) {
+                dataBinding.teName.setError("Name is Mandatory")
+            } else if (dataBinding.teEmail.text.toString().isEmpty()) {
+                dataBinding.teEmail.setError("Email is Mandatory")
+            } else if (dataBinding.teBirthdate.text.toString().isEmpty()) {
+                dataBinding.teBirthdate.setError("Birthdate is Mandatory")
+            } else if (dataBinding.tePassword.text.toString().isEmpty()) {
+                dataBinding.tePassword.setError("Password is Mandatory")
+            } else if (dataBinding.teConfirmPassword.text.toString().isEmpty()) {
+                dataBinding.teConfirmPassword.setError("Password is Mandatory")
+            } else if (!dataBinding.rbutMale.isChecked && !dataBinding.rbutFemale.isChecked) {
+                dataBinding.tvGenderTxt.setError("Gender selection are mandatory")
+            } else {
+                Toast.makeText(this, "Details Are Submitted", Toast.LENGTH_LONG).show()
+            }
+            return true
     }
+
+
 }

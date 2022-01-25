@@ -1,5 +1,6 @@
 package com.example.demoapps.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -17,8 +18,7 @@ class MainActivity : AppCompatActivity() {
     private var clicked = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        dataBinding =DataBindingUtil.setContentView(this, R.layout.activity_main)
         setClick()
     }
 
@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
             onAddButtonClick()
         }
         dataBinding.ivAdduser.setOnClickListener {
+            val intent=Intent(this,AddUser::class.java)
+            startActivity(intent)
             Toast.makeText(this, "Add User", Toast.LENGTH_LONG).show()
         }
         dataBinding.ivUserList.setOnClickListener {
@@ -49,10 +51,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAnimation(clicked: Boolean) {
-        AnimationUtils.loadAnimation(this,R.anim.rotate_open)
-        AnimationUtils.loadAnimation(this,R.anim.rotate_close)
-        AnimationUtils.loadAnimation(this,R.anim.from_bottom)
-        AnimationUtils.loadAnimation(this,R.anim.to_bottom)
         if (!clicked) {
             dataBinding.ivAdduser.startAnimation(
                 AnimationUtils.loadAnimation(
