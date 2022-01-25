@@ -3,7 +3,6 @@ package com.example.demoapps.activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,7 +13,7 @@ import com.example.demoapps.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityMainBinding
-    lateinit var toogle: ActionBarDrawerToggle
+    private lateinit var toogle: ActionBarDrawerToggle
     private var clicked = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
