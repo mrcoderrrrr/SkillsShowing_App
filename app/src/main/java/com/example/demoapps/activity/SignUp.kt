@@ -46,10 +46,10 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun setSignUpData() {
-        DatePicker()
+        DateOfBirth()
     }
 
-    private fun DatePicker() {
+    private fun DateOfBirth() {
         val myCalendar = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             myCalendar.set(Calendar.YEAR, year)
@@ -79,6 +79,7 @@ class SignUp : AppCompatActivity() {
             if (validate()) {
                 setSharePreference()
                 setSignUpData()
+                return@setOnClickListener
             }
         }
     }

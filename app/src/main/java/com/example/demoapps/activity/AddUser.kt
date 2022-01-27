@@ -5,7 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
+import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.ActivityAddUserBinding
+import com.example.demoapps.entity.UserEntity
+import kotlinx.coroutines.InternalCoroutinesApi
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,8 +22,18 @@ class AddUser : AppCompatActivity() {
         setClick()
     }
 
+    @OptIn(InternalCoroutinesApi::class)
     private fun setClick() {
         DateOfBirth()
+
+        dataBinding.btnSubmit.setOnClickListener{
+            val db=UserDatabase.getDatabase(applicationContext).userDao()
+            val user = UserEntity(0,dataBinding.teFullName.text.toString(),
+                dataBinding.teLastName.text.toString(),
+                dataBinding.rgGender.toString(),
+                dataBinding.teBirthdate.text.toString())
+         db.UserInsert(user)
+        }
     }
 
     private fun DateOfBirth() {
@@ -51,3 +64,5 @@ class AddUser : AppCompatActivity() {
 
 
 }
+
+
