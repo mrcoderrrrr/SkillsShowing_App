@@ -13,25 +13,4 @@ import kotlinx.coroutines.internal.synchronized
 abstract class UserDatabase:RoomDatabase() {
     abstract fun userDao(): UserDao
 
-
-    @InternalCoroutinesApi
-    companion object{
-        @Volatile
-        private var INSTANCE: UserDatabase?= null
-
-        fun getDatabase(context : Context):UserDatabase{
-            if (INSTANCE == null){
-                synchronized(this){
-                    INSTANCE=Room.databaseBuilder(
-                        context.applicationContext,UserDatabase::class.java,"UserData")
-                        .allowMainThreadQueries()
-                        .build()
-                }
-            }
-            return INSTANCE!!
-        }
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
 }
