@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.room.Room
 import com.example.demoapps.R
 import com.example.demoapps.dao.UserDao
 import com.example.demoapps.database.UserDatabase
@@ -37,6 +38,8 @@ class AddUser : AppCompatActivity() {
             dataBinding.teLastName.text.toString(),
             dataBinding.rgGender.toString(),
             dataBinding.teBirthdate.text.toString())
+        userDatabase=Room.databaseBuilder(this,UserDatabase::class.java,"UserData")
+            .allowMainThreadQueries().build()
       userDatabase.userDao().UserInsert(user)
         Toast.makeText(this,"Submit",Toast.LENGTH_LONG).show()
     }
