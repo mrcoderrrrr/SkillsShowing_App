@@ -34,13 +34,13 @@ class AddUser : AppCompatActivity() {
     }
 
     private fun InsertData() {
-        val user=UserEntity(0,dataBinding.teFullName.text.toString(),
+        val userEntity=UserEntity(0,dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
             dataBinding.rgGender.toString(),
             dataBinding.teBirthdate.text.toString())
         userDatabase=Room.databaseBuilder(this,UserDatabase::class.java,"UserData")
             .allowMainThreadQueries().build()
-      userDatabase.userDao().UserInsert(user)
+      userDatabase.userDao().UserInsert(userEntity = userEntity)
         Toast.makeText(this,"Submit",Toast.LENGTH_LONG).show()
     }
 
