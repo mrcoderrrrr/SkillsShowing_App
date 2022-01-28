@@ -16,19 +16,19 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        val sharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         //OnClick
         setClick(sharedPreferences)
     }
 
     private fun setClick(sharedPreferences: SharedPreferences) {
         dataBinding.butLogin.setOnClickListener {
-            if (validate(sharedPreferences)){
+            if (validate(sharedPreferences)) {
                 return@setOnClickListener
             }
         }
-        dataBinding.tvSignupTxt.setOnClickListener{
-                setSignUp()
+        dataBinding.tvSignupTxt.setOnClickListener {
+            setSignUp()
         }
     }
 
@@ -37,13 +37,17 @@ class Login : AppCompatActivity() {
             dataBinding.teEmail.setError("Username is mandatory")
         } else if (dataBinding.tePassword.text.toString().isEmpty()) {
             dataBinding.tePassword.setError("Password is mandatory")
-        }
-        else if (dataBinding.teEmail.text.toString().isEmpty() || dataBinding.tePassword.text.toString().isEmpty() ){
+        } else if (dataBinding.teEmail.text.toString()
+                .isEmpty() || dataBinding.tePassword.text.toString().isEmpty()
+        ) {
             dataBinding.teEmail.setError("Username is mandatory")
             dataBinding.tePassword.setError("Password is mandatory")
-        }
-        else {
-            if (dataBinding.teEmail.text.toString()==(sharedPreferences.getString("Email"," ")) && dataBinding.tePassword.text.toString()==(sharedPreferences.getString("Password",""))) {
+        } else {
+            if (dataBinding.teEmail.text.toString() == (sharedPreferences.getString("Email",
+                    " ")) && dataBinding.tePassword.text.toString() == (sharedPreferences.getString(
+                    "Password",
+                    ""))
+            ) {
                 setHome()
             } else {
                 Toast.makeText(this, "Log in failed", Toast.LENGTH_LONG).show()
@@ -63,7 +67,7 @@ class Login : AppCompatActivity() {
         dataBinding.tvSignupTxt.setOnClickListener {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
-    }
+        }
     }
 
 
