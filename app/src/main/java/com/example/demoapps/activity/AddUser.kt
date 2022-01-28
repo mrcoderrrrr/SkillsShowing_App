@@ -28,7 +28,7 @@ class AddUser : AppCompatActivity() {
         dateOfBirth()
 
         dataBinding.btnSubmit.setOnClickListener{
-           // insertData()
+            insertData()
         }
     }
 
@@ -44,7 +44,6 @@ class AddUser : AppCompatActivity() {
     }
 
     private fun dateOfBirth() {
-
         val myCalendar = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             myCalendar.set(Calendar.YEAR, year)

@@ -18,11 +18,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.Login"
-            android:exported="false" />
-        <activity
-            android:name=".SplashScreen"
-            android:exported="true"
-            android:theme="@style/Splash_screen">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,8 +26,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SplashScreen"
+            android:exported="true"
+            android:theme="@style/Splash_screen">
+
+        </activity>
+        <activity
             android:name=".activity.MainActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+        </activity>
     </application>
 
 </manifest>

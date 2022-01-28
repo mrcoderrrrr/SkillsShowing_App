@@ -1,10 +1,10 @@
 package com.example.demoapps.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,24 +15,36 @@ import com.example.demoapps.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityMainBinding
     private lateinit var toogle: ActionBarDrawerToggle
-    private var clicked = false
+    lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dataBinding =DataBindingUtil.setContentView(this, R.layout.activity_main)
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         setClick()
     }
 
     private fun setClick() {
         //Navigation menu
-         navMenu()
+        navMenu()
         //Floating Button
         floatbtn()
+        dataBinding.btnLogout.setOnClickListener {
+            if (sharedPreferences == null) {
+                sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
+                var userName = sharedPreferences.getString("Email", "")
+                if (userName != null) {
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
 
     }
 
     private fun floatbtn() {
         dataBinding.ivAdd.setOnClickListener {
-            val intent=Intent(this,AddUser::class.java)
+            val intent = Intent(this, AddUser::class.java)
             startActivity(intent)
             Toast.makeText(this, "Add User", Toast.LENGTH_LONG).show()
         }
@@ -59,10 +71,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toogle.onOptionsItemSelected(item)){
+        if (toogle.onOptionsItemSelected(item)) {
 
             return true
         }
-            return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item)
     }
 }
