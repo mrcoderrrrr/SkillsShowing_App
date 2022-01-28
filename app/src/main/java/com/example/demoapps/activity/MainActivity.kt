@@ -32,57 +32,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun floatbtn() {
         dataBinding.ivAdd.setOnClickListener {
-            onAddButtonClick()
-        }
-        dataBinding.ivAdduser.setOnClickListener {
             val intent=Intent(this,AddUser::class.java)
             startActivity(intent)
             Toast.makeText(this, "Add User", Toast.LENGTH_LONG).show()
         }
-        dataBinding.ivUserList.setOnClickListener {
-            Toast.makeText(this, "User List", Toast.LENGTH_LONG).show()
-        }
     }
 
-    private fun onAddButtonClick() {
-        setVisibility(clicked)
-        setAnimation(clicked)
-        clicked = !clicked
-    }
-
-    private fun setAnimation(clicked: Boolean) {
-        if (!clicked) {
-            dataBinding.ivAdduser.startAnimation(
-                AnimationUtils.loadAnimation(
-                    this,
-                    R.anim.from_bottom
-                )
-            )
-            dataBinding.ivUserList.startAnimation(
-                AnimationUtils.loadAnimation(
-                    this,
-                    R.anim.from_bottom
-                )
-            )
-            dataBinding.ivAdd.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotate_open))
-        }
-        else{
-            dataBinding.ivAdduser.startAnimation( AnimationUtils.loadAnimation(this,R.anim.to_bottom))
-            dataBinding.ivUserList.startAnimation( AnimationUtils.loadAnimation(this,R.anim.to_bottom))
-            dataBinding.ivAdd.startAnimation( AnimationUtils.loadAnimation(this,R.anim.rotate_close))
-        }
-    }
-
-    private fun setVisibility(clicked: Boolean) {
-        if (!clicked) {
-            dataBinding.ivAdduser.visibility = View.VISIBLE
-            dataBinding.ivUserList.visibility=View.VISIBLE
-        }
-        else{
-            dataBinding.ivAdduser.visibility = View.INVISIBLE
-            dataBinding.ivUserList.visibility=View.INVISIBLE
-        }
-    }
 
     private fun navMenu() {
         toogle = ActionBarDrawerToggle(this, dataBinding.dlmain, R.string.open, R.string.close)

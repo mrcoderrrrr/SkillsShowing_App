@@ -20,8 +20,7 @@ class AddUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_user)
 
-        userDatabase=Room.databaseBuilder(this,UserDatabase::class.java,"userdata")
-            .allowMainThreadQueries().build()
+
         setClick()
     }
 
@@ -29,7 +28,7 @@ class AddUser : AppCompatActivity() {
         dateOfBirth()
 
         dataBinding.btnSubmit.setOnClickListener{
-            insertData()
+           // insertData()
         }
     }
 
@@ -38,8 +37,9 @@ class AddUser : AppCompatActivity() {
             dataBinding.teLastName.text.toString(),
             dataBinding.rgGender.toString(),
             dataBinding.teBirthdate.text.toString())
-
-      userDatabase.userDao().UserInsert(userEntity = userEntity)
+        userDatabase=Room.databaseBuilder(this,UserDatabase::class.java,"userdata")
+            .allowMainThreadQueries().build()
+      userDatabase.userDao().UserInsert(userEntity)
         Toast.makeText(this,"Submit",Toast.LENGTH_LONG).show()
     }
 
