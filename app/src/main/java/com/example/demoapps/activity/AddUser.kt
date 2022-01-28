@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.room.Room
 import com.example.demoapps.R
-import com.example.demoapps.dao.UserDao
 import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.ActivityAddUserBinding
 import com.example.demoapps.entity.UserEntity
@@ -21,33 +20,33 @@ class AddUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_user)
 
-
+        userDatabase=Room.databaseBuilder(this,UserDatabase::class.java,"userdata")
+            .allowMainThreadQueries().build()
         setClick()
     }
 
     private fun setClick() {
-        DateOfBirth()
+        dateOfBirth()
 
         dataBinding.btnSubmit.setOnClickListener{
-            InsertData()
+            insertData()
         }
     }
 
-    private fun InsertData() {
+    private fun insertData() {
         val userEntity=UserEntity(0,dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
             dataBinding.rgGender.toString(),
             dataBinding.teBirthdate.text.toString())
-        userDatabase=Room.databaseBuilder(this,UserDatabase::class.java,"UserData")
-            .allowMainThreadQueries().build()
+
       userDatabase.userDao().UserInsert(userEntity = userEntity)
         Toast.makeText(this,"Submit",Toast.LENGTH_LONG).show()
     }
 
-    private fun DateOfBirth() {
+    private fun dateOfBirth() {
 
         val myCalendar = Calendar.getInstance()
-        val datePicker = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+        val datePicker = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             myCalendar.set(Calendar.YEAR, year)
             myCalendar.set(Calendar.MONTH, month)
             myCalendar.set(Calendar.DAY_OF_MONTH, day)

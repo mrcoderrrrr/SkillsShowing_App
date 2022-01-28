@@ -45,6 +45,10 @@ dependencies {
     //CircleImageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 //room library
-    implementation 'android.arch.persistence.room:runtime:1.1.1-alpha1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1-alpha1'
+
+    def roomVersion = "2.4.1"
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+
 }

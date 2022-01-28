@@ -13,4 +13,5 @@ import kotlinx.coroutines.internal.synchronized
 abstract class UserDatabase:RoomDatabase() {
     abstract fun userDao(): UserDao
 
+
 }
