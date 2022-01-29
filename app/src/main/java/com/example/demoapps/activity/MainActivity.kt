@@ -16,10 +16,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityMainBinding
     private lateinit var toogle: ActionBarDrawerToggle
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
+        editor=sharedPreferences.edit()
         setClick()
     }
 
@@ -29,17 +31,12 @@ class MainActivity : AppCompatActivity() {
         //Floating Button
         floatbtn()
         dataBinding.btnLogout.setOnClickListener {
-            if (sharedPreferences == null) {
-                sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
-                var userName = sharedPreferences.getString("Email", "")
-                if (userName != null) {
-                    val intent = Intent(this, Login::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
+            editor.clear()
+            editor.commit()
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+            finish()
         }
-
     }
 
     private fun floatbtn() {

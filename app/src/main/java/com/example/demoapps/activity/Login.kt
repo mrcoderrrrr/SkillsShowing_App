@@ -23,20 +23,16 @@ class Login : AppCompatActivity() {
     }
 
     private fun setClick() {
-        if(sharedPreferences == null){
-            sharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
-
-            var userName=sharedPreferences.getString("Email", "")
-            Log.d("Email",userName.toString())
-            if (userName != null) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+        if (sharedPreferences.contains("Email") && sharedPreferences.contains("Password")) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
-        dataBinding.butLogin.setOnClickListener {
-            if (validate()){
-                return@setOnClickListener
+        else {
+            dataBinding.butLogin.setOnClickListener {
+                if (validate()) {
+                    return@setOnClickListener
+                }
             }
         }
         dataBinding.tvSignupTxt.setOnClickListener{
