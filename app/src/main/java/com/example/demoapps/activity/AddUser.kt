@@ -1,6 +1,8 @@
 package com.example.demoapps.activity
 
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,11 +28,28 @@ class AddUser : AppCompatActivity() {
 
     private fun setClick() {
         dateOfBirth()
-
+        profileImage()
         dataBinding.btnSubmit.setOnClickListener{
             insertData()
         }
     }
+
+    private fun profileImage() {
+      dataBinding.ciProfile.setOnClickListener{
+          val intent=Intent(Intent.ACTION_PICK)
+          intent.type="image/*"
+          startActivityForResult(intent,200)
+      }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    if(requestCode == 200 && resultCode == RESULT_OK){
+        val selectImage= data?.data
+            dataBinding.ciProfile.setImageURI(selectImage)
+        }
+    }
+
 
     private fun insertData() {
         val userEntity=UserEntity(0,dataBinding.teFullName.text.toString(),

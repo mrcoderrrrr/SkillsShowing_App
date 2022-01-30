@@ -14,16 +14,21 @@ import com.example.demoapps.databinding.ActivityLoginBinding
 class Login : AppCompatActivity() {
     private lateinit var dataBinding: ActivityLoginBinding
     private lateinit var sharedPreferences:SharedPreferences
+     lateinit var editor:SharedPreferences.Editor
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         sharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
+        editor=sharedPreferences.edit()
+        editor.putBoolean("userLogin",true)
+        editor.commit()
+        editor.apply()
         //OnClick
         setClick()
     }
 
     private fun setClick() {
-        if (sharedPreferences.contains("Email") && sharedPreferences.contains("Password")) {
+        if (sharedPreferences.contains("userLogin")){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

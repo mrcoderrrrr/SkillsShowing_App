@@ -30,17 +30,23 @@ class MainActivity : AppCompatActivity() {
         navMenu()
         //Floating Button
         floatbtn()
-        dataBinding.btnLogout.setOnClickListener {
-            editor.clear()
-            editor.commit()
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
-            finish()
-        }
+       //btnlogout()
     }
+
+    private fun btnlogout() {
+//        dataBinding.btnLogout.setOnClickListener {
+//            editor.remove("userLogin")
+//            editor.commit()
+//            finish()
+//            val intent = Intent(this, Login::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+        }
 
     private fun floatbtn() {
         dataBinding.ivAdd.setOnClickListener {
+
             val intent = Intent(this, AddUser::class.java)
             startActivity(intent)
             Toast.makeText(this, "Add User", Toast.LENGTH_LONG).show()
