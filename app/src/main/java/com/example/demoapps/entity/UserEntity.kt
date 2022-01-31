@@ -10,5 +10,6 @@ data class UserEntity(
     val fname:String,
     val lname:String,
     val gender:String,
-    val dob: String
+    val dob: String,
+    val imagepath :String
     )

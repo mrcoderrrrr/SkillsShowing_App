@@ -14,7 +14,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".activity.MainActivity">
-
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rcv_userList"
+    />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/iv_add"
                 android:layout_width="wrap_content"
@@ -27,25 +31,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-<!--            <Button-->
-<!--                android:id="@+id/btn_logout"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="158dp"-->
-<!--                android:layout_marginTop="304dp"-->
-<!--                android:layout_marginEnd="155dp"-->
-<!--                android:gravity="center"-->
-<!--                android:text="Log out"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_menu"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"

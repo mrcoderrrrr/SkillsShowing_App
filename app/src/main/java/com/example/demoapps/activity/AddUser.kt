@@ -2,7 +2,6 @@ package com.example.demoapps.activity
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,19 +17,30 @@ import java.util.*
 class AddUser : AppCompatActivity() {
     private lateinit var dataBinding: ActivityAddUserBinding
     private lateinit var userDatabase: UserDatabase
+    var genderVal=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_user)
 
 
-        setClick()
+        setClick(genderVal)
     }
 
-    private fun setClick() {
+    private fun setClick(genderVal: String) {
         dateOfBirth()
         profileImage()
+        gender()
         dataBinding.btnSubmit.setOnClickListener{
-            insertData()
+            insertData(genderVal)
+        }
+    }
+
+    private fun gender() {
+        if (dataBinding.rbutMale.isChecked){
+            genderVal = "Male"
+        }
+        else if(dataBinding.rbutFemale.isChecked){
+            genderVal ="Female"
         }
     }
 
@@ -51,14 +61,14 @@ class AddUser : AppCompatActivity() {
     }
 
 
-    private fun insertData() {
+    private fun insertData(genderVal: String) {
         val userEntity=UserEntity(0,dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
-            dataBinding.rgGender.toString(),
-            dataBinding.teBirthdate.text.toString())
+            genderVal,
+            dataBinding.teBirthdate.text.toString(),dataBinding.ciProfile.toString())
         userDatabase=Room.databaseBuilder(this,UserDatabase::class.java,"userdata")
             .allowMainThreadQueries().build()
-      userDatabase.userDao().UserInsert(userEntity)
+      userDatabase.userDao().userInsert(userEntity)
         Toast.makeText(this,"Submit",Toast.LENGTH_LONG).show()
     }
 
