@@ -11,5 +11,5 @@ interface UserDao {
 fun userInsert(userEntity: UserEntity)
 
 @Query("SELECT * FROM userinfo")
-fun userViewData():ArrayList<UserEntity>
+fun userViewData():List<UserEntity>
 }

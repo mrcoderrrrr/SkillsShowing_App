@@ -1,5 +1,6 @@
 package com.example.demoapps.entity
 
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,5 +12,5 @@ data class UserEntity(
     val lname:String,
     val gender:String,
     val dob: String,
-    val imagepath :String
+    val imagepath: String
     )

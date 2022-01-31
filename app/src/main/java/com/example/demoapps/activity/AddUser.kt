@@ -2,11 +2,11 @@ package com.example.demoapps.activity
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.room.Room
 import com.example.demoapps.R
 import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.ActivityAddUserBinding
@@ -16,32 +16,38 @@ import java.util.*
 
 class AddUser : AppCompatActivity() {
     private lateinit var dataBinding: ActivityAddUserBinding
-    private lateinit var userDatabase: UserDatabase
-    var genderVal=""
+    private var genderVal=""
+    private var profile:Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_user)
 
 
-        setClick(genderVal)
+        setClick()
     }
 
-    private fun setClick(genderVal: String) {
+    private fun setClick() {
         dateOfBirth()
         profileImage()
         gender()
         dataBinding.btnSubmit.setOnClickListener{
-            insertData(genderVal)
+            insertData()
+            Toast.makeText(this,"Details Are Submittd",Toast.LENGTH_LONG).show()
+            val intent=Intent(this,MainActivity::class.java)
+            startActivity(intent)
+                finish()
         }
     }
 
     private fun gender() {
-        if (dataBinding.rbutMale.isChecked){
-            genderVal = "Male"
-        }
-        else if(dataBinding.rbutFemale.isChecked){
-            genderVal ="Female"
-        }
+        dataBinding.rgGender.setOnCheckedChangeListener({ _, checkedId ->
+                when(checkedId){
+                    R.id.rbut_male-> genderVal ="Male"
+                    R.id.rbut_female-> genderVal ="Female"
+                    else ->genderVal = null.toString()
+            }
+            })
+
     }
 
     private fun profileImage() {
@@ -55,20 +61,18 @@ class AddUser : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     if(requestCode == 200 && resultCode == RESULT_OK){
-        val selectImage= data?.data
-            dataBinding.ciProfile.setImageURI(selectImage)
+       profile= data?.data
+            dataBinding.ciProfile.setImageURI(profile)
         }
     }
 
 
-    private fun insertData(genderVal: String) {
+    private fun insertData() {
         val userEntity=UserEntity(0,dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
             genderVal,
-            dataBinding.teBirthdate.text.toString(),dataBinding.ciProfile.toString())
-        userDatabase=Room.databaseBuilder(this,UserDatabase::class.java,"userdata")
-            .allowMainThreadQueries().build()
-      userDatabase.userDao().userInsert(userEntity)
+            dataBinding.teBirthdate.text.toString(),profile.toString())
+      UserDatabase.getInstance(this)?.userDao()!!.userInsert(userEntity)
         Toast.makeText(this,"Submit",Toast.LENGTH_LONG).show()
     }
 
@@ -99,5 +103,6 @@ class AddUser : AppCompatActivity() {
 
 
 }
+
 
 

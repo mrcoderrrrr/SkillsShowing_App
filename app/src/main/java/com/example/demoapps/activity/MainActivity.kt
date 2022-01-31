@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -22,12 +23,11 @@ import com.example.demoapps.entity.UserEntity
 class MainActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityMainBinding
     private lateinit var toogle: ActionBarDrawerToggle
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var editor: SharedPreferences.Editor
-    private lateinit var userDatabase: UserDatabase
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private var adpater: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
-    private lateinit var userData: ArrayList<UserEntity>
+    private lateinit var userEntity:List<UserEntity>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -38,13 +38,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun recyclerView() {
-        userDatabase = Room.databaseBuilder(this, UserDatabase::class.java, "userdata")
-            .allowMainThreadQueries().build()
-        userData = userDatabase.userDao().userViewData()
-        layoutManager = LinearLayoutManager(this)
-        dataBinding.rcvUserList.layoutManager = layoutManager
-        adpater = RecyclerViewAdapter(this, userData)
-        dataBinding.rcvUserList.adapter = adpater
+        userEntity = UserDatabase.getInstance(this)?.userDao()!!.userViewData()
+        Log.d("UserVal",userEntity.toString())
+        dataBinding.rcvUserList.apply {
+            layoutManager = LinearLayoutManager(applicationContext)
+            dataBinding.rcvUserList.layoutManager = layoutManager
+            adpater = RecyclerViewAdapter(userEntity)
+            dataBinding.rcvUserList.adapter = adpater
+        }
+
     }
 
     private fun setClick() {

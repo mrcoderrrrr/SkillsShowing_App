@@ -7,18 +7,19 @@ import androidx.room.RoomDatabase
 import com.example.demoapps.dao.UserDao
 import com.example.demoapps.entity.UserEntity
 
-@Database(entities = [UserEntity::class], version = 1)
+@Database(entities = [UserEntity::class], version = 1, exportSchema = false)
 abstract class UserDatabase:RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
         private var INSTANCE: UserDatabase? = null
-
         fun getInstance(context: Context): UserDatabase? {
             if (INSTANCE == null) {
                 synchronized(UserDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        UserDatabase::class.java, "user.db").allowMainThreadQueries()
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        UserDatabase::class.java, "userInfo.db"
+                    ).allowMainThreadQueries()
                         .build()
                 }
             }
@@ -28,4 +29,5 @@ abstract class UserDatabase:RoomDatabase() {
         fun destroyInstance() {
             INSTANCE = null
         }
+    }
 }
