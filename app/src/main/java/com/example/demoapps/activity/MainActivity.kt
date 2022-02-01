@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         dataBinding.rcvUserList.apply {
             layoutManager = LinearLayoutManager(applicationContext)
             dataBinding.rcvUserList.layoutManager = layoutManager
-            adpater = RecyclerViewAdapter(userEntity)
+            adpater = RecyclerViewAdapter(context,userEntity)
             dataBinding.rcvUserList.adapter = adpater
         }
 

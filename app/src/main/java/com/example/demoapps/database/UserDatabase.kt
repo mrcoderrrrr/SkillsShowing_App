@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.demoapps.dao.UserDao
 import com.example.demoapps.entity.UserEntity
 
-@Database(entities = [UserEntity::class], version = 1, exportSchema = false)
+@Database(entities = [UserEntity::class], version = 2, exportSchema = false)
 abstract class UserDatabase:RoomDatabase() {
     abstract fun userDao(): UserDao
 
@@ -20,6 +20,7 @@ abstract class UserDatabase:RoomDatabase() {
                         context.applicationContext,
                         UserDatabase::class.java, "userInfo.db"
                     ).allowMainThreadQueries()
+                        .fallbackToDestructiveMigration()
                         .build()
                 }
             }

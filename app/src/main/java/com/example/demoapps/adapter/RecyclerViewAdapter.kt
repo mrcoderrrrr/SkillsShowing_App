@@ -1,18 +1,25 @@
 package com.example.demoapps.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
+import com.example.demoapps.activity.UserList
 import com.example.demoapps.entity.UserEntity
 import com.squareup.picasso.Picasso
 
-class RecyclerViewAdapter(private val userEntity: List<UserEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-
+class RecyclerViewAdapter(context: Context, private val userEntity: List<UserEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+    private val context:Context
+    init {
+        this.context=context
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -30,7 +37,12 @@ class RecyclerViewAdapter(private val userEntity: List<UserEntity>) : RecyclerVi
             .centerCrop()
             .resize(70,70)
             .into(holder.Profile)
-
+        holder.cvuserList.setOnClickListener {
+            val intent=Intent(context, UserList::class.java)
+            intent.putExtra("UserId",userEntity.get(position).id)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -41,11 +53,12 @@ return userEntity.size
          var Profile:ImageView
          var username:TextView
          var gender:TextView
-
+        lateinit var cvuserList:CardView
         init {
             Profile=itemView.findViewById(R.id.ci_profile)
             username=itemView.findViewById(R.id.tv_username)
             gender=itemView.findViewById(R.id.tv_gender)
+            cvuserList=itemView.findViewById(R.id.cv_userList)
         }
     }
 }

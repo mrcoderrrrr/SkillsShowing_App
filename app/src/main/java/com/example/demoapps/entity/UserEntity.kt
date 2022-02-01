@@ -1,13 +1,12 @@
 package com.example.demoapps.entity
 
-import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "UserInfo")
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int=0,
+    val id: Int? =0,
     val fname:String,
     val lname:String,
     val gender:String,

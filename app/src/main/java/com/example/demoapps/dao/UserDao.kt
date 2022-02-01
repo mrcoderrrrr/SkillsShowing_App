@@ -12,4 +12,7 @@ fun userInsert(userEntity: UserEntity)
 
 @Query("SELECT * FROM userinfo")
 fun userViewData():List<UserEntity>
+
+@Query("SELECT * FROM UserInfo WHERE id=:id")
+fun userItemData(id:Int) : UserEntity
 }
