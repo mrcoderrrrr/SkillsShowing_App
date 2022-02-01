@@ -1,22 +1,25 @@
 package com.example.demoapps.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
-import com.example.demoapps.activity.UserList
 import com.example.demoapps.entity.UserEntity
+import com.example.demoapps.fragment.UserItemList
 import com.squareup.picasso.Picasso
 
 class RecyclerViewAdapter(context: Context, private val userEntity: List<UserEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private val context:Context
+
     init {
         this.context=context
     }
@@ -37,11 +40,15 @@ class RecyclerViewAdapter(context: Context, private val userEntity: List<UserEnt
             .centerCrop()
             .resize(70,70)
             .into(holder.Profile)
-        holder.cvuserList.setOnClickListener {
-            val intent=Intent(context, UserList::class.java)
-            intent.putExtra("UserId",userEntity.get(position).id)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
+        holder.itemView.setOnClickListener {
+           val bundle=Bundle()
+            bundle.putInt("userId", userEntity.get(position).id!!)
+            val activity=it.context as AppCompatActivity
+            activity.supportFragmentManager.beginTransaction()
+                .replace(R.id.fl_userList,UserItemList())
+                .addToBackStack(null)
+                .commit()
+
         }
     }
 

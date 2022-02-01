@@ -19,6 +19,7 @@ import com.example.demoapps.adapter.RecyclerViewAdapter
 import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.ActivityMainBinding
 import com.example.demoapps.entity.UserEntity
+import com.example.demoapps.fragment.UserList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityMainBinding
@@ -26,28 +27,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private var adpater: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
-    private lateinit var userEntity:List<UserEntity>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_userList, UserList()).commit();
         sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
-        recyclerView()
+
         setClick()
     }
 
-    private fun recyclerView() {
-        userEntity = UserDatabase.getInstance(this)?.userDao()!!.userViewData()
-        Log.d("UserVal",userEntity.toString())
-        dataBinding.rcvUserList.apply {
-            layoutManager = LinearLayoutManager(applicationContext)
-            dataBinding.rcvUserList.layoutManager = layoutManager
-            adpater = RecyclerViewAdapter(context,userEntity)
-            dataBinding.rcvUserList.adapter = adpater
-        }
-
-    }
 
     private fun setClick() {
         //Navigation menu
