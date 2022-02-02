@@ -22,14 +22,13 @@ import java.util.*
 class AddUserFragment : Fragment() {
     private lateinit var dataBinding: FragmentAddUserBinding
     private var genderVal = ""
-    private var userId: Int? = null
+    private var userId: Int? = 0
     private var profile: Uri? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         userId = arguments?.getInt("userId", 0)
         Log.d("UserID", userId.toString())
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,17 +44,8 @@ class AddUserFragment : Fragment() {
         dateOfBirth()
         profileImage()
         gender()
-
-
-        if (userId!! < 1) {
-            dataBinding.btnSubmit.setOnClickListener {
-                insertData()
-                val fragmentmanager = it.context as AppCompatActivity
-                fragmentmanager.supportFragmentManager.beginTransaction()
-                    .replace(R.id.fl_userList, UserListFragment())
-                    .commit()
-            }
-        } else {
+        fileOperation()
+        if (userId!! >= 1) {
             dataBinding.btnSubmit.setOnClickListener {
                 updateUserData()
                 val fragmentmanager = it.context as AppCompatActivity
@@ -63,7 +53,24 @@ class AddUserFragment : Fragment() {
                     .replace(R.id.fl_userList, UserListFragment())
                     .commit()
             }
+        } else if(userId == null || userId == 0) {
+            dataBinding.btnSubmit.setOnClickListener {
+                insertData()
+                val fragmentmanager = it.context as AppCompatActivity
+                fragmentmanager.supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_userList, UserListFragment())
+                    .commit()
+            }
 
+        }
+    }
+
+    private fun fileOperation() {
+        dataBinding.btnFileOperation.setOnClickListener {
+            val fragmentmanager = it.context as AppCompatActivity
+           fragmentmanager.supportFragmentManager.beginTransaction()
+            .replace(R.id.fl_userList, FileOperationFragment())
+                .commit()
         }
     }
 

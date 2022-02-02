@@ -10,10 +10,10 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivityMainBinding
 import com.example.demoapps.fragment.AddUserFragment
+import com.example.demoapps.fragment.FileOperationFragment
 import com.example.demoapps.fragment.UserListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -21,11 +21,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toogle: ActionBarDrawerToggle
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
-    private lateinit var layoutManager: RecyclerView.LayoutManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl_userList, UserListFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_userList, UserListFragment())
+            .commit()
         sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
@@ -50,21 +50,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.nav_file_operation -> {
+                val fragmentmanager = supportFragmentManager
+                val fragmentTransaction = fragmentmanager.beginTransaction()
+                fragmentTransaction.replace(R.id.fl_userList, FileOperationFragment())
+                    .commit()
+                Toast.makeText(this, "Hii", Toast.LENGTH_LONG).show()
+                true
+            }
             R.id.nav_logout -> {
                 btnlogout()
                 true
             }
             else -> {
                 super.onContextItemSelected(item)
-                true
             }
         }
     }
 
     private fun btnlogout() {
-        editor.remove("userLogin")
+        editor.remove("UserLogin")
         editor.commit()
-        finish()
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
@@ -73,10 +79,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun floatbtn() {
         dataBinding.ivAdd.setOnClickListener {
-            val fragmentmanager=supportFragmentManager
-            val fragmentTransaction=fragmentmanager.beginTransaction()
-                fragmentTransaction.replace(R.id.fl_userList,AddUserFragment())
-                    .commit()
+            val fragmentmanager = supportFragmentManager
+            val fragmentTransaction = fragmentmanager.beginTransaction()
+            fragmentTransaction.replace(R.id.fl_userList, AddUserFragment())
+                .commit()
         }
     }
 
