@@ -19,6 +19,7 @@ import com.example.demoapps.adapter.RecyclerViewAdapter
 import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.ActivityMainBinding
 import com.example.demoapps.entity.UserEntity
+import com.example.demoapps.fragment.AddUser
 import com.example.demoapps.fragment.UserList
 
 class MainActivity : AppCompatActivity() {
@@ -78,10 +79,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun floatbtn() {
         dataBinding.ivAdd.setOnClickListener {
-
-            val intent = Intent(this, AddUser::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "Add User", Toast.LENGTH_LONG).show()
+            val fragmentmanager=supportFragmentManager
+            val fragmentTransaction=fragmentmanager.beginTransaction()
+                fragmentTransaction.replace(R.id.fl_userList,AddUser())
+                    .commit()
         }
     }
 

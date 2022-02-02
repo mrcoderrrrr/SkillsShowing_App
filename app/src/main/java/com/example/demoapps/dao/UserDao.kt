@@ -5,7 +5,7 @@ import com.example.demoapps.entity.UserEntity
 
 @Dao
 interface UserDao {
-@Insert(onConflict = OnConflictStrategy.REPLACE)
+@Insert
 fun userInsert(userEntity: UserEntity)
 
 @Query("SELECT * FROM userinfo")

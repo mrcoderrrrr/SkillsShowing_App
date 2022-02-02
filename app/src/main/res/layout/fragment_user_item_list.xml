@@ -3,47 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:barrierAllowsGoneWidgets="true">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/fl_userItemData"
         tools:context=".fragment.UserItemList">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cv_Profile"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="105dp"
-            android:layout_marginTop="95dp"
-            android:layout_marginEnd="106dp"
-            android:foregroundGravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="62dp"
+            android:text="Update"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_dob" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="77dp"
+            android:layout_marginTop="62dp"
+            android:layout_marginEnd="76dp"
+            android:text="Delete"
+            android:id="@+id/btn_delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_update"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dob" />
 
         <TextView
+            android:id="@+id/tv_gender_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="37dp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:hint="Fullname"
             android:gravity="center"
-            android:id="@+id/tv_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_Profile" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="37dp"
+            android:text="Gender"
             android:textColor="#505050"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Gender"
-            android:gravity="center"
-            android:id="@+id/tv_gender_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -77,18 +75,43 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_gender" />
 
         <TextView
+            android:id="@+id/tv_dob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="Date of Birth"
             android:textColor="#505050"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:hint="Date of Birth"
-            android:gravity="center"
-            android:id="@+id/tv_dob"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_dob_txt" />
 
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:gravity="center"
+            android:hint="Fullname"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_Profile" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_Profile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="105dp"
+            android:layout_marginTop="95dp"
+            android:layout_marginEnd="106dp"
+            android:foregroundGravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
@@ -19,6 +20,10 @@ import com.squareup.picasso.Picasso
 
 class RecyclerViewAdapter(context: Context, private val userEntity: List<UserEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private val context:Context
+    val fragment:Fragment
+        get() {
+            TODO()
+        }
 
     init {
         this.context=context
@@ -41,14 +46,15 @@ class RecyclerViewAdapter(context: Context, private val userEntity: List<UserEnt
             .resize(70,70)
             .into(holder.Profile)
         holder.itemView.setOnClickListener {
-           val bundle=Bundle()
-            bundle.putInt("userId", userEntity.get(position).id!!)
+
+            val bundle=Bundle()
+            bundle.putInt("userId", userEntity.get(position).id)
+            Log.d("UserId", userEntity.get(position).id.toString())
             val activity=it.context as AppCompatActivity
             activity.supportFragmentManager.beginTransaction()
                 .replace(R.id.fl_userList,UserItemList())
                 .addToBackStack(null)
                 .commit()
-
         }
     }
 
