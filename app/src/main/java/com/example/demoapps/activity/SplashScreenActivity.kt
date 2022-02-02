@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.demoapps.activity.Login
+import com.example.demoapps.activity.LoginActivity
 import com.example.demoapps.databinding.ActivitySplashscreenBinding
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
     lateinit var dataBinding: ActivitySplashscreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class SplashScreen : AppCompatActivity() {
 
         //open Mainactivity using handler
         android.os.Handler().postDelayed({
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)

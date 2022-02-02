@@ -13,7 +13,7 @@ import com.example.demoapps.databinding.ActivitySignupBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SignUp : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivitySignupBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun setLoginScreen() {
-        val intent = Intent(this, Login::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -18,7 +18,7 @@ import com.example.demoapps.databinding.FragmentUserListBinding
 import com.example.demoapps.entity.UserEntity
 
 
-class UserList : Fragment() {
+class UserListFragment : Fragment() {
     private lateinit var dataBinding: FragmentUserListBinding
     private var adpater: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
     private lateinit var userEntity:List<UserEntity>

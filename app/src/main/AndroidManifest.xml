@@ -17,13 +17,13 @@
             android:name=".activity.AddUser"
             android:exported="false" />
         <activity
-            android:name=".activity.SignUp"
+            android:name=".activity.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.Login"
+            android:name=".activity.LoginActivity"
             android:exported="false"></activity>
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Splash_screen">
             <intent-filter>

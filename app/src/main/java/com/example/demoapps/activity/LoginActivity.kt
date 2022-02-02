@@ -4,14 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivityLoginBinding
 
-class Login : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityLoginBinding
     private lateinit var sharedPreferences:SharedPreferences
      lateinit var editor:SharedPreferences.Editor
@@ -77,7 +76,7 @@ class Login : AppCompatActivity() {
 
     private fun setSignUp() {
         dataBinding.tvSignupTxt.setOnClickListener {
-            val intent = Intent(this, SignUp::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
     }
     }

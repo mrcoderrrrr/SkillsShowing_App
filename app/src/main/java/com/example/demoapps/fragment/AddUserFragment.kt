@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +19,17 @@ import com.example.demoapps.entity.UserEntity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddUser : Fragment() {
+class AddUserFragment : Fragment() {
     private lateinit var dataBinding: FragmentAddUserBinding
     private var genderVal = ""
+    private var userId: Int? = null
     private var profile: Uri? = null
-    private val bundle=Bundle()
-    private val userId=bundle.getInt("userId")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        userId = arguments?.getInt("userId", 0)
+        Log.d("UserID", userId.toString())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,22 +45,32 @@ class AddUser : Fragment() {
         dateOfBirth()
         profileImage()
         gender()
-        if (userId >= 1 ) {
-            updateUserData()
-        }
-        dataBinding.btnSubmit.setOnClickListener {
-            insertData()
-            val fragmentmanager = it.context as AppCompatActivity
-            fragmentmanager.supportFragmentManager.beginTransaction()
-                .replace(R.id.fl_addUser, UserList())
-                .commit()
+
+
+        if (userId!! < 1) {
+            dataBinding.btnSubmit.setOnClickListener {
+                insertData()
+                val fragmentmanager = it.context as AppCompatActivity
+                fragmentmanager.supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_userList, UserListFragment())
+                    .commit()
+            }
+        } else {
+            dataBinding.btnSubmit.setOnClickListener {
+                updateUserData()
+                val fragmentmanager = it.context as AppCompatActivity
+                fragmentmanager.supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_userList, UserListFragment())
+                    .commit()
+            }
+
         }
     }
 
     private fun updateUserData() {
 
         val userEntity = UserEntity(
-            userId, dataBinding.teFullName.text.toString(),
+            userId!!, dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
             genderVal,
             dataBinding.teBirthdate.text.toString(), profile.toString()

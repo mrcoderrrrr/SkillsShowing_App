@@ -16,4 +16,10 @@ fun userItemData(id: Int) : UserEntity
 
 @Update
 fun userUpdate(userEntity: UserEntity)
+
+@Delete
+fun userDeleteData(userEntity: UserEntity)
+
+//@Query("DELETE FROM UserInfo WHERE id=:id")
+//fun userDelete(id: Int):UserEntity
 }
