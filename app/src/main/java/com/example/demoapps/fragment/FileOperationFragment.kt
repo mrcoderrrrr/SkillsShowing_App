@@ -92,7 +92,7 @@ private lateinit var dataBinding:FragmentFileOperationBinding
 
     private fun docFromFile() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type ="pdf/*"
+        intent.type ="application/pdf"
         startActivityForResult(intent, 300)
     }
 
