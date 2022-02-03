@@ -21,7 +21,7 @@ private lateinit var dataBinding:FragmentFileOperationBinding
     private var image: Uri? = null
     private var video: Uri? = null
     private var doc: Uri? = null
-    private val mediaController:MediaController? = null
+    private var mediaController:MediaController? = null
     private var fileOutputStream: FileOutputStream? = null
     private var fileInputStream: FileInputStream? = null
     private var inputStreamReader: InputStreamReader? = null
@@ -97,14 +97,11 @@ private lateinit var dataBinding:FragmentFileOperationBinding
     }
 
     private fun videoPlay() {
-        MediaController(activity?.applicationContext)
+        mediaController=MediaController(requireContext())
         mediaController?.setAnchorView(dataBinding.vvVideo)
       dataBinding.vvVideo.setMediaController(mediaController)
         dataBinding.vvVideo.setVideoURI(video)
         dataBinding.vvVideo.requestFocus()
-        dataBinding.vvVideo.resume()
-        dataBinding.vvVideo.pause()
-        dataBinding.vvVideo.stopPlayback()
         dataBinding.vvVideo.start()
     }
 

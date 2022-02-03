@@ -6,17 +6,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="713dp"
         tools:context=".fragment.FileOperationFragment">
-
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="87dp"
-            android:layout_marginTop="36dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_image"
@@ -31,16 +22,6 @@
             app:layout_constraintStart_toEndOf="@+id/iv_image"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <VideoView
-            android:id="@+id/vv_video"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="44dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_image" />
-
         <Button
             android:id="@+id/btn_video"
             android:layout_width="100dp"
@@ -50,19 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vv_video" />
-
-        <TextView
-            android:id="@+id/tv_doc_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Document File"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_video" />
+            app:layout_constraintTop_toBottomOf="@+id/fl_video" />
 
         <Button
             android:id="@+id/btn_doc"
@@ -74,6 +43,28 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_doc_txt" />
+
+        <Button
+            android:id="@+id/btn_savefile"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="8dp"
+            android:text="Save"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_user_file_data" />
+
+        <Button
+            android:id="@+id/btn_viewfile"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="79dp"
+            android:text="View"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_savefile"
+            app:layout_constraintTop_toBottomOf="@+id/et_user_file_data" />
 
         <EditText
             android:id="@+id/et_user_file_name"
@@ -97,27 +88,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_user_file_name" />
 
-        <Button
-            android:id="@+id/btn_savefile"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="8dp"
-            android:text="Save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_user_file_data" />
-
-        <Button
-            android:id="@+id/btn_viewfile"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="52dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="79dp"
-            android:text="View"
+        <FrameLayout
+            android:id="@+id/fl_video"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_savefile"
-            app:layout_constraintTop_toBottomOf="@+id/et_user_file_data" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_image">
+
+            <VideoView
+                android:id="@+id/vv_video"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="200dp" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="87dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_doc_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Document File"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_video" />
 
         <TextView
             android:id="@+id/tv_filename"

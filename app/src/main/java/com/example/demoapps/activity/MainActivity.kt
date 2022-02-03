@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivityMainBinding
-import com.example.demoapps.fragment.AddUserFragment
 import com.example.demoapps.fragment.FileOperationFragment
 import com.example.demoapps.fragment.UserListFragment
 
@@ -36,9 +35,6 @@ class MainActivity : AppCompatActivity() {
     private fun setClick() {
         //Navigation menu
         navMenu()
-        //Floating Button
-        floatbtn()
-        //menubar
 
 
     }
@@ -77,14 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun floatbtn() {
-        dataBinding.ivAdd.setOnClickListener {
-            val fragmentmanager = supportFragmentManager
-            val fragmentTransaction = fragmentmanager.beginTransaction()
-            fragmentTransaction.replace(R.id.fl_userList, AddUserFragment())
-                .commit()
-        }
-    }
+
 
 
     private fun navMenu() {
