@@ -13,28 +13,31 @@
             android:id="@+id/iv_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:layout_marginStart="87dp"
+            android:layout_marginTop="36dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/btn_image"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="81dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="48dp"
             android:text="Image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_image" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/iv_image"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <VideoView
             android:id="@+id/vv_video"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="44dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_image" />
 
@@ -73,7 +76,18 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_doc_txt" />
 
         <EditText
-            android:id="@+id/et_user_txt"
+            android:id="@+id/et_user_file_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="File Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_doc" />
+
+        <EditText
+            android:id="@+id/et_user_file_data"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -81,17 +95,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_doc" />
+            app:layout_constraintTop_toBottomOf="@+id/et_user_file_name" />
+
         <Button
-            android:id="@+id/btn_userfile"
+            android:id="@+id/btn_savefile"
             android:layout_width="100dp"
             android:layout_height="50dp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="8dp"
-            android:text="File"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:text="Save"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_user_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/et_user_file_data" />
+
+        <Button
+            android:id="@+id/btn_viewfile"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="79dp"
+            android:text="View"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_savefile"
+            app:layout_constraintTop_toBottomOf="@+id/et_user_file_data" />
 
         <TextView
             android:id="@+id/tv_filename"
@@ -103,6 +129,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_userfile" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_savefile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
