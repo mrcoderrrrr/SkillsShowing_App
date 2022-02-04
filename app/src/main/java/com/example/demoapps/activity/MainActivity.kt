@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -46,14 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.nav_file_operation -> {
-                val fragmentmanager = supportFragmentManager
-                val fragmentTransaction = fragmentmanager.beginTransaction()
-                fragmentTransaction.replace(R.id.fl_userList, FileOperationFragment())
-                    .commit()
-                Toast.makeText(this, "Hii", Toast.LENGTH_LONG).show()
-                true
-            }
             R.id.nav_logout -> {
                 btnlogout()
                 true
@@ -73,9 +64,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-
     private fun navMenu() {
         toogle = ActionBarDrawerToggle(this, dataBinding.dlmain, R.string.open, R.string.close)
         dataBinding.dlmain.addDrawerListener(toogle)
@@ -86,9 +74,27 @@ class MainActivity : AppCompatActivity() {
         dataBinding.navMenu.setNavigationItemSelectedListener {
             when (it.itemId) {
 
-                R.id.nav_home -> Toast.makeText(this, "Home", Toast.LENGTH_LONG).show()
-                R.id.nav_contact -> Toast.makeText(this, "About Us", Toast.LENGTH_LONG).show()
-                R.id.nav_about -> Toast.makeText(this, "Contact Us", Toast.LENGTH_LONG).show()
+                R.id.nav_home -> {
+                    val fragmentmanager = supportFragmentManager
+                    val fragmentTransaction = fragmentmanager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fl_userList, UserListFragment())
+                        .commit()
+                    true
+                }
+                        R.id.nav_file_operation -> {
+                    val fragmentmanager = supportFragmentManager
+                    val fragmentTransaction = fragmentmanager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fl_userList, FileOperationFragment())
+                        .commit()
+                    true
+                }
+                R.id.nav_firebase -> {
+                    val fragmentmanager = supportFragmentManager
+                    val fragmentTransaction = fragmentmanager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fl_userList, FileOperationFragment())
+                        .commit()
+                    true
+                }
 
             }
             true

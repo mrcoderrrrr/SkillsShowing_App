@@ -9,14 +9,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivityLoginBinding
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityLoginBinding
     private lateinit var sharedPreferences:SharedPreferences
      lateinit var editor:SharedPreferences.Editor
+     private var firebaseAuth:FirebaseAuth?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        firebaseAuth= FirebaseAuth.getInstance()
         sharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         editor=sharedPreferences.edit()
         editor.putBoolean("userLogin",true)
@@ -27,7 +31,39 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setClick() {
-        if (sharedPreferences.contains("userLogin")){
+       //sharedPrefrenceLogin()
+
+        dataBinding.tvSignupTxt.setOnClickListener{
+            setSignUp()
+        }
+        dataBinding.butLogin.setOnClickListener {
+            if (validate()) {
+                firebaseLogin()
+                return@setOnClickListener
+            }
+        }
+    }
+
+    private fun firebaseLogin() {
+        if (!dataBinding.teEmail.text.toString().isEmpty() && !dataBinding.tePassword.text.toString()
+                .isEmpty()
+        ) {
+            firebaseAuth!!.signInWithEmailAndPassword(
+                dataBinding.teEmail.text.toString(),
+                dataBinding.tePassword.text.toString()
+            )
+                .addOnCompleteListener(this, OnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                })
+        }
+    }
+
+    private fun sharedPrefrenceLogin() {
+        if (sharedPreferences.contains("userLogin")== true){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -39,9 +75,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-        dataBinding.tvSignupTxt.setOnClickListener{
-                setSignUp()
-        }
+
 
 
     }

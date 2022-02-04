@@ -10,11 +10,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivitySignupBinding
+import com.example.demoapps.model.SignUpModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivitySignupBinding
+    private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
+    private var databaseReference: DatabaseReference? = null
+    private var signUpModel: SignUpModel? = null
+    private var genderVal: Any? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
@@ -75,13 +85,63 @@ class SignUpActivity : AppCompatActivity() {
     private fun setClick() {
         dataBinding.btnSignup.setOnClickListener {
             if (validate()) {
-                setSharePreference()
-
+                //setSharePreference()
+                firebaseSignUp()
+                firebaseDataStrore()
                 return@setOnClickListener
             }
         }
         dateOfBirth()
+        gender()
     }
+
+    private fun gender() {
+        dataBinding.rgGender.setOnCheckedChangeListener({ _, checkedId ->
+            when (checkedId) {
+                R.id.rbut_male -> genderVal = "Male"
+                R.id.rbut_female -> genderVal = "Female"
+                else -> genderVal = null.toString()
+            }
+        })
+    }
+
+
+    private fun firebaseDataStrore() {
+        signUpModel = SignUpModel(
+           0,
+            dataBinding.teName.text.toString(),
+            dataBinding.teEmail.text.toString(),
+            genderVal.toString(),
+            dataBinding.teBirthdate.text.toString()
+        )
+        databaseReference =
+            firebaseDatabase.getReference("UserData").child(firebaseAuth.uid!!).child(signUpModel!!.id.toString())
+        databaseReference!!.setValue(signUpModel)
+    }
+
+    private fun firebaseSignUp() {
+        if (!dataBinding.teEmail.text.toString()
+                .isEmpty() && !dataBinding.tePassword.text.toString()
+                .isEmpty()
+        ) {
+            firebaseAuth.createUserWithEmailAndPassword(
+                dataBinding.teEmail.text.toString(),
+                dataBinding.tePassword.text.toString()
+            )
+                .addOnCompleteListener(this, OnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(
+                            this, "Invalid", Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+        }
+    }
+
 
     private fun validate(): Boolean {
         if (dataBinding.teName.text.toString().isEmpty()) {

@@ -4,11 +4,29 @@
     <item android:title="Home"
         android:id="@+id/nav_home"
         />
-    <item android:title="Contact Us"
-        android:id="@+id/nav_contact"
+    <item android:title="File Operation"
+        android:id="@+id/nav_file_operation"
         />
-    <item android:title="About Us"
-        android:id="@+id/nav_about"
+    <item android:title="Social Login"
+        android:id="@+id/nav_social"
+        />
+    <item android:title="Firebaser Operation"
+        android:id="@+id/nav_firebase"
+        />
+    <item android:title="Bottom Menu"
+        android:id="@+id/nav_bottom_menu"
+        />
+    <item android:title="Notification"
+        android:id="@+id/nav_notify"
+        />
+    <item android:title="Google Map"
+        android:id="@+id/nav_google_map"
+        />
+    <item android:title="Custom Drawable"
+        android:id="@+id/nav_drawable"
+        />
+    <item android:title="Api Calling"
+        android:id="@+id/nav_api"
         />
 
 </menu>

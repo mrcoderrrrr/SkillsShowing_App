@@ -44,7 +44,6 @@ class AddUserFragment : Fragment() {
         dateOfBirth()
         profileImage()
         gender()
-        fileOperation()
         if (userId!! >= 1) {
             dataBinding.btnSubmit.setOnClickListener {
                 updateUserData()
@@ -62,15 +61,6 @@ class AddUserFragment : Fragment() {
                     .commit()
             }
 
-        }
-    }
-
-    private fun fileOperation() {
-        dataBinding.btnFileOperation.setOnClickListener {
-            val fragmentmanager = it.context as AppCompatActivity
-           fragmentmanager.supportFragmentManager.beginTransaction()
-            .replace(R.id.fl_userList, FileOperationFragment())
-                .commit()
         }
     }
 

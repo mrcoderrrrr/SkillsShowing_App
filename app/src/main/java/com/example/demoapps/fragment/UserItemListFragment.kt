@@ -42,20 +42,17 @@ class UserItemListFragment : Fragment() {
         dataBinding.btnUpdate.setOnClickListener {
             updateData(it)
         }
-        dataBinding.btnDelete.setOnClickListener{
-            deleteData(it)
-        }
     }
 
-    private fun deleteData(view: View) {
-        val userEntity=UserEntity(userId!!, dataBinding.tvName.toString(),
-            dataBinding.tvName.toString()
-        ,dataBinding.tvGender.toString(),dataBinding.tvDob.toString(),dataBinding.cvProfile.toString())
-        UserDatabase.getInstance(requireContext())?.userDao()!!.userDeleteData(userEntity)
-        val fragmentManager=view.context as AppCompatActivity
-        fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,UserItemListFragment())
-            .commit()
-    }
+//    private fun deleteData(view: View) {
+//        val userEntity=UserEntity(userId!!, dataBinding.tvName.toString(),
+//            dataBinding.tvName.toString()
+//        ,dataBinding.tvGender.toString(),dataBinding.tvDob.toString(),dataBinding.cvProfile.toString())
+//        UserDatabase.getInstance(requireContext())?.userDao()!!.userDeleteData(userEntity)
+//        val fragmentManager=view.context as AppCompatActivity
+//        fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,UserItemListFragment())
+//            .commit()
+//    }
 
     private fun userDataView() {
         if (userId!! >=1) {
