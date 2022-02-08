@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
 import com.example.demoapps.databinding.FragmentFirebaseAddUserBinding
+
 import com.example.demoapps.model.FireBaseModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

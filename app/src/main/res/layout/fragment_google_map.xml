@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fragment
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.GoogleMapFragment" />
+    tools:context=".fragment.GoogleMapFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="Search Location"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:id="@+id/et_search"
+            android:layout_weight="1"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:id="@+id/btn_search"
+            android:text="Search"/>
+
+    </LinearLayout>
+</fragment>
