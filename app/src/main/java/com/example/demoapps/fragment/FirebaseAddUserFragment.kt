@@ -29,6 +29,7 @@ class FirebaseAddUserFragment : Fragment() {
     private var firebaseUser:FirebaseUser? = firebaseAuth.currentUser
     private var genderVal = ""
     private var profile: Uri? = null
+    val firebaseUserFragment=FirebaseUserFragment()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,20 +45,20 @@ class FirebaseAddUserFragment : Fragment() {
         profileImage()
         gender()
         dataBinding.btnSubmit.setOnClickListener {
-            if (firebaseUser!!.uid == null) {
-                insertFirebaseData()
-            }
-            else {
+            insertFirebaseData()
+            val fragmentManager= requireView().context as AppCompatActivity
+            fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,firebaseUserFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+            dataBinding.btnUpdate.setOnClickListener{
                 updateFirebaseData()
-                val firebaseUserFragment=FirebaseUserFragment()
                 val fragmentManager= requireView().context as AppCompatActivity
                 fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,firebaseUserFragment)
                     .addToBackStack(null)
                     .commit()
             }
-
         }
-    }
     private fun updateFirebaseData() {
         databaseReference = firebaseDatabase.getReference("UserData").child(firebaseUser!!.uid)
         val hashMap = HashMap<Any, Any>()

@@ -3,8 +3,7 @@ package com.example.demoapps.fragment
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,29 +19,22 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import java.io.IOException
-import java.util.*
 
 
 class GoogleMapFragment : Fragment() {
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
-    private var mcurrentLocations:List<Address>?=null
-    private var mMap: GoogleMap? = null
-    private val callback = OnMapReadyCallback { _ ->
+    private lateinit var mcurrentLocations:Location
+    private lateinit var mMap:GoogleMap
+    private val callback = OnMapReadyCallback() { googleMap ->
        mFusedLocationClient=LocationServices.getFusedLocationProviderClient(requireContext())
-        val latLng = LatLng(mcurrentLocations!!.get(0).latitude, mcurrentLocations!!.get(0).longitude)
-        val markerOptions = MarkerOptions().position(latLng).title("I am here!")
-        mMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f))
-        mMap?.addMarker(markerOptions)
-        setClick()
+        setClick(googleMap)
     }
 
-    private fun setClick() {
-        currentLocation()
+    private fun setClick(googleMap: GoogleMap) {
+        currentLocation(googleMap)
     }
 
-    private fun currentLocation() {
+    private fun currentLocation(googleMap: GoogleMap) {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -52,23 +44,16 @@ class GoogleMapFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            mFusedLocationClient!!.getLastLocation()
-                .addOnCompleteListener( { task ->
-                    val currentLocation = task.result
-                    if (currentLocation != null) {
-                        try {
-                            val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                            mcurrentLocations = geocoder.getFromLocation(
-                                currentLocation.latitude,
-                                currentLocation.longitude,
-                                1
-                            )
-                            markLocation()
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
-                    }
-                })
+            mMap=googleMap
+          mMap!!.isMyLocationEnabled = true
+            mFusedLocationClient!!.lastLocation.addOnSuccessListener(requireActivity()) {  location  ->
+                if (location != null){
+                    mcurrentLocations= location
+                    val latLng =LatLng(location.latitude,location.longitude)
+                    placeMarker(latLng)
+                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,20f))
+                }
+            }
         } else {
             ActivityCompat.requestPermissions(
                 requireContext() as Activity,
@@ -79,6 +64,13 @@ class GoogleMapFragment : Fragment() {
                 100
             )
         }
+    }
+
+    private fun placeMarker(latLng: LatLng) {
+        val markerOptions = MarkerOptions().position(latLng).title("I am here!")
+        mMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f))
+        mMap?.addMarker(markerOptions)
     }
 
     private fun markLocation() {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ class FirebaseUserFragment : Fragment() {
     private  var fireBaseModel:FireBaseModel? =null
     private  var fireBaseData:ArrayList<FireBaseModel>? =null
     private var firebaseAdapter: RecyclerView.Adapter<FirebaseAdapter.ViewHolder>? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +42,17 @@ class FirebaseUserFragment : Fragment() {
 
     private fun setClick() {
         recyclerView()
+        floatbtn()
+    }
+
+    private fun floatbtn() {
+        var firebaseAddUserFragment:FirebaseAddUserFragment=FirebaseAddUserFragment()
+        dataBinding.btnFloat.setOnClickListener{
+        val fragmentManager= it.context as AppCompatActivity
+        fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,firebaseAddUserFragment)
+            .addToBackStack(null)
+            .commit()
+        }
     }
 
     private fun recyclerView() {
@@ -48,8 +61,6 @@ class FirebaseUserFragment : Fragment() {
         databaseReference!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-//               var fireBaseUser=snapshot.getValue<FireBaseModel>(FireBaseModel::class.java)
-//                   fireBaseModel.add(fireBaseUser!!)
                         fireBaseData= ArrayList<FireBaseModel>()
                         fireBaseModel = FireBaseModel(
                             snapshot.child("fname").value as String,
