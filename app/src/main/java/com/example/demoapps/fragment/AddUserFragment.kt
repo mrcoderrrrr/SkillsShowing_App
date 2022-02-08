@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,23 +17,34 @@ import com.example.demoapps.R
 import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.FragmentAddUserBinding
 import com.example.demoapps.entity.UserEntity
+import com.example.demoapps.model.FireBaseModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AddUserFragment : Fragment() {
     private lateinit var dataBinding: FragmentAddUserBinding
     private var genderVal = ""
     private var userId: Int? = 0
     private var profile: Uri? = null
+    private var firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
+    private var databaseReference: DatabaseReference? = null
+    private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var firebaseUser: FirebaseUser? = firebaseAuth.currentUser
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userId = arguments?.getInt("userId", 0)
         Log.d("UserID", userId.toString())
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_user, container, false)
         val view = dataBinding.root
@@ -41,10 +53,11 @@ class AddUserFragment : Fragment() {
     }
 
     private fun setClick() {
+
         dateOfBirth()
         profileImage()
         gender()
-        if (userId!! >= 1) {
+        if (userId!! >= 1 ) {
             dataBinding.btnSubmit.setOnClickListener {
                 updateUserData()
                 val fragmentmanager = it.context as AppCompatActivity
@@ -52,9 +65,10 @@ class AddUserFragment : Fragment() {
                     .replace(R.id.fl_userList, UserListFragment())
                     .commit()
             }
-        } else if(userId == null || userId == 0) {
+        } else if (userId == null || userId == 0) {
             dataBinding.btnSubmit.setOnClickListener {
-                insertData()
+
+                insertSharedPrefrenceData()
                 val fragmentmanager = it.context as AppCompatActivity
                 fragmentmanager.supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_userList, UserListFragment())
@@ -64,26 +78,28 @@ class AddUserFragment : Fragment() {
         }
     }
 
-    private fun updateUserData() {
 
-        val userEntity = UserEntity(
+
+
+
+    private fun updateUserData() {
+      val userEntity = UserEntity(
             userId!!, dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
             genderVal,
             dataBinding.teBirthdate.text.toString(), profile.toString()
         )
-
-        UserDatabase.getInstance(requireContext())?.userDao()!!.userUpdate(userEntity)
+        UserDatabase.getInstance(requireContext())?.userDao()!!.userUpdate(userEntity!!)
     }
 
-    private fun insertData() {
+    private fun insertSharedPrefrenceData() {
         val userEntity = UserEntity(
             0, dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
             genderVal,
             dataBinding.teBirthdate.text.toString(), profile.toString()
         )
-        UserDatabase.getInstance(requireContext())?.userDao()!!.userInsert(userEntity)
+        UserDatabase.getInstance(requireContext())?.userDao()!!.userInsert(userEntity!!)
         Toast.makeText(requireContext(), "Submit", Toast.LENGTH_LONG).show()
     }
 

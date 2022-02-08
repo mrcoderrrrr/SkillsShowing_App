@@ -9,57 +9,50 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
 import com.example.demoapps.entity.UserEntity
+import com.example.demoapps.fragment.FirebaseItemListFragment
+import com.example.demoapps.fragment.FirebaseUserFragment
 import com.example.demoapps.fragment.UserItemListFragment
+import com.example.demoapps.model.FireBaseModel
 import com.squareup.picasso.Picasso
 
-class RecyclerViewAdapter(context: Context, private val userEntity: List<UserEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class FirebaseAdapter(context:Context, private val fireBaseData: ArrayList<FireBaseModel>) : RecyclerView.Adapter<FirebaseAdapter.ViewHolder>() {
     private val context:Context
     init {
         this.context=context
     }
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): RecyclerViewAdapter.ViewHolder {
-        val v=LayoutInflater.from(parent.context).inflate(R.layout.activity_userlist_cardview,parent,false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirebaseAdapter.ViewHolder {
+        val v= LayoutInflater.from(parent.context).inflate(R.layout.activity_userlist_cardview,parent,false)
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.username.setText(userEntity.get(position).fname+" "+userEntity.get(position).lname)
-        Log.d("UserName",userEntity.get(position).fname+" "+userEntity.get(position).lname)
-        holder.gender.setText(userEntity.get(position).gender)
+    override fun onBindViewHolder(holder: FirebaseAdapter.ViewHolder, position: Int) {
+        holder.username.setText(fireBaseData.get(position).fname+" "+fireBaseData.get(position).lname)
+        holder.gender.setText(fireBaseData.get(position).gender)
         Picasso.get()
-            .load(userEntity.get(position).imagepath)
+            .load(fireBaseData.get(position).imagepath)
             .centerCrop()
             .resize(70,70)
             .into(holder.Profile)
         holder.itemView.setOnClickListener {
-            val userItemListFragment=UserItemListFragment()
-            val bundle=Bundle()
-            bundle.putInt("userId", userEntity.get(position).id)
-            userItemListFragment.arguments=bundle
-            Log.d("UserId", userEntity.get(position).id.toString())
+            val firebaseItemListFragment= FirebaseItemListFragment()
             val activity=it.context as AppCompatActivity
             activity.supportFragmentManager.beginTransaction()
-                .replace(R.id.fl_userList,userItemListFragment)
+                .replace(R.id.fl_userList,firebaseItemListFragment)
                 .addToBackStack(null)
                 .commit()
         }
     }
 
     override fun getItemCount(): Int {
-return userEntity.size
+        return fireBaseData.size
     }
-
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-         var Profile:ImageView
-         var username:TextView
-         var gender:TextView
+        var Profile: ImageView
+        var username: TextView
+        var gender: TextView
         init {
             Profile=itemView.findViewById(R.id.ci_profile)
             username=itemView.findViewById(R.id.tv_username)
@@ -67,4 +60,3 @@ return userEntity.size
         }
     }
 }
-

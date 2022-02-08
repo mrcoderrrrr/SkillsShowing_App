@@ -36,6 +36,8 @@ class SignUpActivity : AppCompatActivity() {
         val editor = sharedPreference.edit()
         editor.putString("Name", dataBinding.teName.text.toString())
         editor.putString("Email", dataBinding.teEmail.text.toString())
+        editor.putString("Gender", genderVal.toString())
+        editor.putString("Dob", dataBinding.teBirthdate.text.toString())
         editor.putString("Password", dataBinding.tePassword.text.toString())
         editor.putString("ConfirmPassword", dataBinding.teConfirmPassword.text.toString())
         Log.d(
@@ -87,7 +89,7 @@ class SignUpActivity : AppCompatActivity() {
             if (validate()) {
                 //setSharePreference()
                 firebaseSignUp()
-                firebaseDataStrore()
+                //firebaseDataStrore()
                 return@setOnClickListener
             }
         }
@@ -106,29 +108,29 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
-    private fun firebaseDataStrore() {
-        signUpModel = SignUpModel(
-           0,
-            dataBinding.teName.text.toString(),
-            dataBinding.teEmail.text.toString(),
-            genderVal.toString(),
-            dataBinding.teBirthdate.text.toString()
-        )
-        databaseReference =
-            firebaseDatabase.getReference("UserData").child(firebaseAuth.uid!!).child(signUpModel!!.id.toString())
-        databaseReference!!.setValue(signUpModel)
-    }
+//    private fun firebaseDataStrore() {
+//        signUpModel = SignUpModel(
+//           0,
+//            dataBinding.teName.text.toString(),
+//            dataBinding.teEmail.text.toString(),
+//            genderVal.toString(),
+//            dataBinding.teBirthdate.text.toString()
+//        )
+//        databaseReference =
+//            firebaseDatabase.getReference("UserData").child(firebaseAuth.uid!!).child(signUpModel!!.id.toString())
+//        databaseReference!!.setValue(signUpModel)
+//    }
 
     private fun firebaseSignUp() {
-        if (!dataBinding.teEmail.text.toString()
-                .isEmpty() && !dataBinding.tePassword.text.toString()
-                .isEmpty()
+        if (dataBinding.teEmail.text.toString()
+                .isNotEmpty() && dataBinding.tePassword.text.toString()
+                .isNotEmpty()
         ) {
             firebaseAuth.createUserWithEmailAndPassword(
                 dataBinding.teEmail.text.toString(),
                 dataBinding.tePassword.text.toString()
             )
-                .addOnCompleteListener(this, OnCompleteListener { task ->
+                .addOnCompleteListener(this){ task ->
                     if (task.isSuccessful) {
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
@@ -138,7 +140,7 @@ class SignUpActivity : AppCompatActivity() {
                             this, "Invalid", Toast.LENGTH_LONG
                         ).show()
                     }
-                })
+                }
         }
     }
 

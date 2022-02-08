@@ -10,15 +10,22 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
+import com.example.demoapps.SplashScreenActivity
 import com.example.demoapps.databinding.ActivityMainBinding
-import com.example.demoapps.fragment.FileOperationFragment
-import com.example.demoapps.fragment.UserListFragment
+import com.example.demoapps.fragment.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+
+
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityMainBinding
     private lateinit var toogle: ActionBarDrawerToggle
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+    private  var firebaseAuth:FirebaseAuth= FirebaseAuth.getInstance()
+    private  var firebaseUser: FirebaseUser? = firebaseAuth.currentUser
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -26,41 +33,19 @@ class MainActivity : AppCompatActivity() {
             .commit()
         sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
+      if(firebaseUser != null) {
 
+      }else{
+          startActivity(Intent(this, LoginActivity::class.java))
+          finish()
+      }
         setClick()
     }
-
 
     private fun setClick() {
         //Navigation menu
         navMenu()
 
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.home_menu, menu)
-        return true
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.nav_logout -> {
-                btnlogout()
-                true
-            }
-            else -> {
-                super.onContextItemSelected(item)
-            }
-        }
-    }
-
-    private fun btnlogout() {
-        editor.remove("UserLogin")
-        editor.commit()
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
 
@@ -91,9 +76,28 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_firebase -> {
                     val fragmentmanager = supportFragmentManager
                     val fragmentTransaction = fragmentmanager.beginTransaction()
-                    fragmentTransaction.replace(R.id.fl_userList, FileOperationFragment())
+                    fragmentTransaction.replace(R.id.fl_userList, FirebaseUserFragment())
                         .commit()
                     true
+                }
+                R.id.nav_bottom_menu -> {
+                    val fragmentmanager = supportFragmentManager
+                    val fragmentTransaction = fragmentmanager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fl_userList, BottomFragment())
+                        .commit()
+                    true
+                }
+                R.id.nav_google_map -> {
+                    val fragmentmanager = supportFragmentManager
+                    val fragmentTransaction = fragmentmanager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fl_userList, GoogleMapFragment())
+                        .commit()
+                    true
+                }
+                R.id.nav_logout -> {
+                    firebaseAuth.signOut()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                 }
 
             }
@@ -103,7 +107,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toogle.onOptionsItemSelected(item)) {
-
+            when(item.itemId){
+            }
             return true
         }
         return super.onOptionsItemSelected(item)

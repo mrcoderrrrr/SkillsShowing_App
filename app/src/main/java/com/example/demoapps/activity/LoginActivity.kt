@@ -11,16 +11,17 @@ import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivityLoginBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityLoginBinding
     private lateinit var sharedPreferences:SharedPreferences
      lateinit var editor:SharedPreferences.Editor
-     private var firebaseAuth:FirebaseAuth?=null
+    private  var firebaseAuth:FirebaseAuth= FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        firebaseAuth= FirebaseAuth.getInstance()
         sharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         editor=sharedPreferences.edit()
         editor.putBoolean("userLogin",true)
@@ -30,8 +31,10 @@ class LoginActivity : AppCompatActivity() {
         setClick()
     }
 
+
+
     private fun setClick() {
-       //sharedPrefrenceLogin()
+
 
         dataBinding.tvSignupTxt.setOnClickListener{
             setSignUp()
@@ -45,8 +48,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun firebaseLogin() {
-        if (!dataBinding.teEmail.text.toString().isEmpty() && !dataBinding.tePassword.text.toString()
-                .isEmpty()
+        if (dataBinding.teEmail.text.toString().isNotEmpty() && dataBinding.tePassword.text.toString()
+                .isNotEmpty()
         ) {
             firebaseAuth!!.signInWithEmailAndPassword(
                 dataBinding.teEmail.text.toString(),
@@ -60,24 +63,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 })
         }
-    }
-
-    private fun sharedPrefrenceLogin() {
-        if (sharedPreferences.contains("userLogin")== true){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        else {
-            dataBinding.butLogin.setOnClickListener {
-                if (validate()) {
-                    return@setOnClickListener
-                }
-            }
-        }
-
-
-
     }
 
     private fun validate(): Boolean {
@@ -95,7 +80,6 @@ class LoginActivity : AppCompatActivity() {
             if (dataBinding.teEmail.text.toString()==(sharedPreferences.getString("Email"," ")) && dataBinding.tePassword.text.toString()==(sharedPreferences.getString("Password",""))) {
                 setHome()
             } else {
-                Toast.makeText(this, "Log in failed", Toast.LENGTH_LONG).show()
             }
         }
         return true

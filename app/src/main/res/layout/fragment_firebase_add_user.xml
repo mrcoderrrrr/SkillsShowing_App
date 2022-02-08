@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        app:barrierAllowsGoneWidgets="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/fl_addUser"
+            tools:context=".fragment.FirebaseAddUserFragment"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ci_profile"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="44dp"
+                app:civ_border_color="@color/purple_500"
+                app:civ_border_width="2dp"
+                android:src="@drawable/ic_baseline_person_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_signup_txt">
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <RadioGroup
+                android:id="@+id/rg_gender"
+                android:layout_width="198dp"
+                android:layout_height="59dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="160dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_gender_txt">
+
+                <RadioButton
+                    android:id="@+id/rbut_male"
+                    android:layout_width="89dp"
+                    android:layout_height="match_parent"
+                    android:text="Male"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="305dp" />
+
+                <RadioButton
+                    android:id="@+id/rbut_female"
+                    android:layout_width="101dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:text="Female"
+                    app:layout_constraintStart_toEndOf="@+id/rbut_male"
+                    tools:layout_editor_absoluteY="305dp" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_signup_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="117dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="118dp"
+                android:gravity="center_horizontal"
+                android:text="Profile"
+                android:textColor="#3F51B5"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_gender_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="248dp"
+                android:gravity="center"
+                android:text="Gender"
+                android:textColor="#3F51B5"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tl_email" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_birthdate"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="302dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="56dp"
+                app:endIconDrawable="@drawable/ic_baseline_date_range_24"
+                app:endIconMode="custom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_gender">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/te_birthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="DOB"
+                    android:textAllCaps="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="302dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ci_profile">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/te_fullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="First name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="302dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tl_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/te_lastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Last Name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="159dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="117dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="135dp"
+                android:layout_marginBottom="100dp"
+                android:text="Submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tl_birthdate" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </layout>

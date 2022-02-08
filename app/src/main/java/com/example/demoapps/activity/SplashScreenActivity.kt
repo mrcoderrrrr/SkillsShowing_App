@@ -6,14 +6,19 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.demoapps.activity.LoginActivity
+import com.example.demoapps.activity.MainActivity
 import com.example.demoapps.databinding.ActivitySplashscreenBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class SplashScreenActivity : AppCompatActivity() {
     lateinit var dataBinding: ActivitySplashscreenBinding
+    private  var firebaseAuth:FirebaseAuth= FirebaseAuth.getInstance()
+    private  var firebaseUser: FirebaseUser? = firebaseAuth.currentUser
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_splashscreen)
+
         //animate logo
         dataBinding.ivLogo.animate().apply {
             duration = 3000
@@ -27,9 +32,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
         //open Mainactivity using handler
         android.os.Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                finish()
         }, 3000)
     }
 }

@@ -5,10 +5,10 @@
     app:barrierAllowsGoneWidgets="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fl_firebaseItemData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fl_userItemData"
-        tools:context=".fragment.UserItemListFragment">
+        tools:context=".fragment.FirebaseItemListFragment">
 
         <Button
             android:id="@+id/btn_update"

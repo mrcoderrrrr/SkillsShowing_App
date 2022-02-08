@@ -28,25 +28,28 @@ class UserListFragment : Fragment() {
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_user_list, container, false)
         val view = dataBinding.root
-        userEntity = UserDatabase.getInstance(requireContext())?.userDao()!!.userViewData()
-        Log.d("UserVal", userEntity.toString())
-        dataBinding.rcvUserList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            dataBinding.rcvUserList.layoutManager = layoutManager
-            adpater = RecyclerViewAdapter(context, userEntity)
-            dataBinding.rcvUserList.adapter = adpater
-
             setClick()
-        }
         // Inflate the layout for this fragment
         return view
     }
 
     private fun setClick() {
+        recyclerView()
         floatBtn()
     }
 
-    private fun floatBtn() {
+fun recyclerView() {
+    userEntity = UserDatabase.getInstance(requireContext())?.userDao()!!.userViewData()
+    Log.d("UserVal", userEntity.toString())
+    dataBinding.rcvUserList.apply {
+        layoutManager = LinearLayoutManager(requireContext())
+        dataBinding.rcvUserList.layoutManager = layoutManager
+        adpater = RecyclerViewAdapter(context, userEntity)
+        dataBinding.rcvUserList.adapter = adpater
+    }
+}
+
+private fun floatBtn() {
         dataBinding.btnFloat.setOnClickListener {
             val fragmentmanager = it.context as AppCompatActivity
             fragmentmanager.supportFragmentManager.beginTransaction()
