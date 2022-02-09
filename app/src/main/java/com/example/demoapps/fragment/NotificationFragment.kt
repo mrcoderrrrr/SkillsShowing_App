@@ -58,7 +58,7 @@ class NotificationFragment : Fragment() {
 
     private fun notificationContent() {
         //notification
-        val intent = Intent(requireContext(), MainActivity::class.java)
+        val intent = Intent(context, MainActivity::class.java)
         intent.action = "REPLY_ACTION"
         val pendingIntent = TaskStackBuilder.create(requireContext()).run {
             addNextIntentWithParentStack(intent)
@@ -71,14 +71,15 @@ class NotificationFragment : Fragment() {
             setLabel(replyLabel)
                 .build()
         }
-        val replyPendingIntent: PendingIntent = PendingIntent.getBroadcast(requireContext(), 101, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        val replyintent = Intent(requireContext(), MainActivity::class.java)
+        val replyPendingIntent: PendingIntent = PendingIntent.getBroadcast(requireContext(), 101, replyintent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
 
-        var action: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_baseline_reply_24, "Reply", replyPendingIntent).addRemoteInput(remoteInput)
+        var action: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_baseline_reply_24, "Reply", replyPendingIntent)
+            .addRemoteInput(remoteInput)
             .setAllowGeneratedReplies(true)
             .build()
 
-        val msg = RemoteInput.getResultsFromIntent(intent)?.getCharSequence(KEY_TEXT_REPLY)
         val notification = NotificationCompat.Builder(requireContext(), channelId)
             .setContentTitle("Demo App")
             .setContentText("Demo App Notification")

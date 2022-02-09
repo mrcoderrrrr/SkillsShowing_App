@@ -19,7 +19,6 @@ import com.example.demoapps.R
 import com.example.demoapps.databinding.FragmentGoogleMapBinding
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -30,20 +29,15 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import java.sql.Array
 import java.util.*
 
 
-class GoogleMapFragment : Fragment(), LocationListener, GoogleApiClient.ConnectionCallbacks,
-    GoogleApiClient.OnConnectionFailedListener {
+class GoogleMapFragment : Fragment() {
     private lateinit var dataBinding: FragmentGoogleMapBinding
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
     private lateinit var mcurrentLocations: Location
@@ -53,16 +47,6 @@ class GoogleMapFragment : Fragment(), LocationListener, GoogleApiClient.Connecti
     private val callback = OnMapReadyCallback() { googleMap ->
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         currentLocation(googleMap)
-    }
-
-    private fun setAutoCompleteFragment() {
-        val autocompleteFragment =
-            fragmentManager?.findFragmentById(R.id.fm_autocomplete_fragment)
-                    as? AutocompleteSupportFragment
-        autocompleteFragment?.setTypeFilter(TypeFilter.ESTABLISHMENT)
-        autocompleteFragment?.setCountries("IN")
-        autocompleteFragment?.setPlaceFields(Arrays.asList(Place.Field.ID,Place.Field.NAME))
-
 
     }
 
@@ -85,7 +69,6 @@ class GoogleMapFragment : Fragment(), LocationListener, GoogleApiClient.Connecti
                     mcurrentLocations = location
                     val latLng = LatLng(location.latitude, location.longitude)
                     placeMarker(latLng)
-                    buildGoogleApiClient(latLng)
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f))
                 }
             }
@@ -102,15 +85,6 @@ class GoogleMapFragment : Fragment(), LocationListener, GoogleApiClient.Connecti
     }
 
 
-    protected fun buildGoogleApiClient(latLng: LatLng) {
-        mGoogleApiClient = GoogleApiClient.Builder(requireContext())
-            .addConnectionCallbacks(this)
-            .addOnConnectionFailedListener(this)
-            .addApi(LocationServices.API)
-            .build()
-        mGoogleApiClient!!.connect()
-    }
-
     private fun placeMarker(latLng: LatLng) {
         val markerOptions = MarkerOptions().position(latLng).title("I am here!")
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
@@ -118,10 +92,6 @@ class GoogleMapFragment : Fragment(), LocationListener, GoogleApiClient.Connecti
         mMap.addMarker(markerOptions)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -131,19 +101,23 @@ class GoogleMapFragment : Fragment(), LocationListener, GoogleApiClient.Connecti
         val view = dataBinding.root
         Places.initialize(requireContext(), R.string.map_api_key.toString())
         var placesClient:PlacesClient = Places.createClient(requireContext())
-        setAutoCompleteFragment()
-        startAutocompleteactivity()
         setClick()
         return view
     }
 
+    private fun setClick() {
+        dataBinding.btnSearch.setOnClickListener {
+            startAutocompleteactivity()
+        }
+
+    }
 
 
     private fun startAutocompleteactivity() {
         val intent=Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY,
         Arrays.asList(Place.Field.ID,Place.Field.NAME))
             .setTypeFilter(TypeFilter.ESTABLISHMENT)
-            .setCountries(Arrays.asList("BR","SR","GY"))
+            .setCountries(Arrays.asList("IN"))
             .build(requireContext())
         startActivityForResult(intent,AUTOCOMPLETE_REQUEST_CODE)
     }
@@ -153,7 +127,7 @@ class GoogleMapFragment : Fragment(), LocationListener, GoogleApiClient.Connecti
             Activity.RESULT_OK -> {
                 data?.let {
                     val place = Autocomplete.getPlaceFromIntent(data)
-                    Log.i(TAG, "Place: ${place.name}, ${place.id}")
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.latLng, 20f))
                 }
             }
             AutocompleteActivity.RESULT_ERROR -> {
@@ -172,19 +146,4 @@ class GoogleMapFragment : Fragment(), LocationListener, GoogleApiClient.Connecti
 
     }
 
-
-    override fun onConnected(p0: Bundle?) {
-    }
-
-    override fun onConnectionSuspended(p0: Int) {
-
-    }
-
-    override fun onConnectionFailed(p0: ConnectionResult) {
-
-    }
-
-    override fun onLocationChanged(p0: Location) {
-
-    }
 }

@@ -8,6 +8,7 @@
         <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_camera_24.xml" value="0.21979166666666666" />
         <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_format_list_bulleted_24.xml" value="0.21979166666666666" />
         <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.21979166666666666" />
+        <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.116" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_add_user.xml" value="0.17481884057971014" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -27,7 +28,7 @@
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_firebase_item_list.xml" value="0.18614130434782608" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_firebase_user.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_google.xml" value="0.1" />
-        <entry key="..\:/demoapps/app/src/main/res/layout/fragment_google_map.xml" value="0.1" />
+        <entry key="..\:/demoapps/app/src/main/res/layout/fragment_google_map.xml" value="0.25" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_notification.xml" value="0.18614130434782608" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_user_item_list.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_user_list.xml" value="0.1" />
