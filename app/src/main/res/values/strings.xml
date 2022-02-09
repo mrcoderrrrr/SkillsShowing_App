@@ -2,6 +2,9 @@
     <string name="app_name">demoapps</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="map_api_key"> AIzaSyBA-lre3GxOHaDL3Lrlq8M3EIXvh-WH-uE</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reply_label">ReplyMsg</string>
+    <string name="Reply_Msg">Reply</string>
 </resources>

@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
+    app:barrierAllowsGoneWidgets="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/fl_addUser"
+        tools:context=".fragment.GoogleMapFragment"
+        >
+<fragment
+    android:id="@+id/fm_map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.GoogleMapFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        >
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:hint="Search Location"
-            android:textColor="@color/black"
-            android:inputType="textPersonName"
-            android:id="@+id/et_search"
-            android:layout_weight="1"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:textColor="@color/black"
-            android:id="@+id/btn_search"
-            android:text="Search"/>
+   />
 
-    </LinearLayout>
-</fragment>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <fragment
+                android:id="@+id/fm_autocomplete_fragment"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
