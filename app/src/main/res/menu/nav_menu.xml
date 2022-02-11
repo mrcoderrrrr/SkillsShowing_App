@@ -28,6 +28,9 @@
     <item android:title="Api Calling"
         android:id="@+id/nav_api"
         />
+    <item android:title="In-App Purchase"
+        android:id="@+id/nav_purchase"
+        />
     <item android:title="Log Out"
         android:id="@+id/nav_logout"
         />

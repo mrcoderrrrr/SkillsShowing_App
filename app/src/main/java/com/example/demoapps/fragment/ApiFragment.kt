@@ -7,10 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
+import com.example.demoapps.adapter.FirebaseAdapter
+import com.example.demoapps.adapter.RecyclerViewAdapter
 import com.example.demoapps.adapter.RetrofitAdapter
 import com.example.demoapps.databinding.FragmentApiBinding
+import com.example.demoapps.entity.UserEntity
 import com.example.demoapps.model.GraphData
 import com.example.demoapps.model.ListData
 import com.example.demoapps.model.RetrofitModel
@@ -53,9 +57,9 @@ class ApiFragment : Fragment() {
 
     private fun retrofit() {
         val retrofitData = RetrofitHelper.getInstance().create(RetrofitApiInterface::class.java)
-        GlobalScope.launch {
-            val result = retrofitData.getApiData()
-            CoroutineScope(Dispatchers.IO).launch {
+
+            CoroutineScope(Dispatchers.Main).launch {
+                val result = retrofitData.getApiData()
                 if (result != null) {
                     apiData= ArrayList<RetrofitModel>()
                     retrofitModel= RetrofitModel(result.body()?.status.toString() ,
@@ -69,8 +73,8 @@ class ApiFragment : Fragment() {
                             data.date.toString(), data.difference.toInt(),
                             data.heigh.toString(), data.is_increased
                         )
+                        apiListData.add(listData!!)
                     }
-
                     apiData.add(retrofitModel!!)
                     Log.d(
                         "userData", result.body()?.status.toString() +
@@ -79,14 +83,19 @@ class ApiFragment : Fragment() {
                                 result.body()!!.data +
                                 result.body()!!.success.toString()
                     )
-                    apiListData.add(listData!!)
-                    retrofitAdapter = RetrofitAdapter(requireContext(), apiData)
-                    dataBinding.rcvApiData.adapter = retrofitAdapter
-                    (retrofitAdapter as RetrofitAdapter).notifyDataSetChanged()
+
+                    activity?.runOnUiThread(Runnable {
+                        kotlin.run {
+                            dataBinding.rcvApiData.apply {
+                                layoutManager=LinearLayoutManager(requireContext())
+                                dataBinding.rcvApiData.layoutManager = layoutManager
+                                retrofitAdapter = RetrofitAdapter(requireContext(), apiData!!)
+                                dataBinding.rcvApiData.adapter =retrofitAdapter
+                                (retrofitAdapter as RetrofitAdapter).notifyDataSetChanged()
+                            }
+                        }
+                    })
                 }
-            }
-
-
         }
     }
 

@@ -27,7 +27,7 @@ class RetrofitAdapter(context: Context, private var apiData: ArrayList<RetrofitM
    // retrofitdata
       holder.date.setText(apiData.get(position).data.list_data.get(position).date)
         holder.height.setText(apiData.get(position).data.list_data.get(position).heigh)
-        holder.diffrence.setText(apiData.get(position).data.list_data.get(position).difference)
+        holder.diffrence.setText(apiData.get(position).data.list_data.get(position).difference.toString())
         if (apiData.get(position).data.list_data.get(position).is_increased == true){
             holder.arrow.isVisible
         }

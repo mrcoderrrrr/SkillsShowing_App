@@ -106,6 +106,13 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     true
                 }
+                R.id.nav_purchase -> {
+                    val fragmentmanager = supportFragmentManager
+                    val fragmentTransaction = fragmentmanager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fl_userList, InAppPurchaseFragment())
+                        .commit()
+                    true
+                }
                 R.id.nav_logout -> {
                     firebaseAuth.signOut()
                     startActivity(Intent(this, LoginActivity::class.java))
