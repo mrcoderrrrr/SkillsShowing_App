@@ -47,7 +47,6 @@ class GoogleMapFragment : Fragment() {
     private val callback = OnMapReadyCallback() { googleMap ->
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         currentLocation(googleMap)
-
     }
 
 
@@ -99,7 +98,8 @@ class GoogleMapFragment : Fragment() {
     ): View {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_google_map, container, false)
         val view = dataBinding.root
-        Places.initialize(requireContext(), R.string.map_api_key.toString())
+        Places.initialize(requireContext(), getString(R.string.map_api_key))
+        Log.d("Key",R.string.map_api_key.toString())
         var placesClient:PlacesClient = Places.createClient(requireContext())
         setClick()
         return view
@@ -115,7 +115,7 @@ class GoogleMapFragment : Fragment() {
 
     private fun startAutocompleteactivity() {
         val intent=Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY,
-        Arrays.asList(Place.Field.ID,Place.Field.NAME))
+        Arrays.asList(Place.Field.ID,Place.Field.NAME,Place.Field.LAT_LNG))
             .setTypeFilter(TypeFilter.ESTABLISHMENT)
             .setCountries(Arrays.asList("IN"))
             .build(requireContext())
@@ -127,7 +127,10 @@ class GoogleMapFragment : Fragment() {
             Activity.RESULT_OK -> {
                 data?.let {
                     val place = Autocomplete.getPlaceFromIntent(data)
+                    val markerOptions = MarkerOptions().position(place.latLng).title("I am here!")
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(place.latLng))
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.latLng, 20f))
+                    mMap.addMarker(markerOptions)
                 }
             }
             AutocompleteActivity.RESULT_ERROR -> {

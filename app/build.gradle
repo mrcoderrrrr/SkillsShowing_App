@@ -34,7 +34,6 @@ android {
         jvmTarget = '1.8'
     }
 }
-
 dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -64,6 +63,13 @@ dependencies {
     //picasso
     def picassoVersion = "2.71828"
     implementation "com.squareup.picasso:picasso:$picassoVersion"
-
-
+//retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+// GSON
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+// coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
+//Graph
+    implementation "com.github.PhilJay:MPAndroidChart:v2.2.3"
 }

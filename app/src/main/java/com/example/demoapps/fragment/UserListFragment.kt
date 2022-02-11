@@ -20,7 +20,7 @@ import com.example.demoapps.entity.UserEntity
 class UserListFragment : Fragment() {
     private lateinit var dataBinding: FragmentUserListBinding
     private var adpater: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
-    private lateinit var userEntity: List<UserEntity>
+    private lateinit var userEntity: ArrayList<UserEntity>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,12 +39,12 @@ class UserListFragment : Fragment() {
     }
 
 fun recyclerView() {
-    userEntity = UserDatabase.getInstance(requireContext())?.userDao()!!.userViewData()
+    userEntity = UserDatabase.getInstance(requireContext())?.userDao()!!.userViewData() as ArrayList<UserEntity>
     Log.d("UserVal", userEntity.toString())
     dataBinding.rcvUserList.apply {
         layoutManager = LinearLayoutManager(requireContext())
         dataBinding.rcvUserList.layoutManager = layoutManager
-        adpater = RecyclerViewAdapter(context, userEntity)
+        adpater = RecyclerViewAdapter(context, userEntity as ArrayList<UserEntity>)
         dataBinding.rcvUserList.adapter = adpater
     }
 }

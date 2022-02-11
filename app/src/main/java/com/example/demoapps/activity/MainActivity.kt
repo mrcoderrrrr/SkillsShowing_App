@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
-import com.example.demoapps.SplashScreenActivity
 import com.example.demoapps.databinding.ActivityMainBinding
 import com.example.demoapps.fragment.*
 import com.google.firebase.auth.FirebaseAuth
@@ -98,6 +96,13 @@ class MainActivity : AppCompatActivity() {
                     val fragmentmanager = supportFragmentManager
                     val fragmentTransaction = fragmentmanager.beginTransaction()
                     fragmentTransaction.replace(R.id.fl_userList, NotificationFragment())
+                        .commit()
+                    true
+                }
+                R.id.nav_api -> {
+                    val fragmentmanager = supportFragmentManager
+                    val fragmentTransaction = fragmentmanager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fl_userList, ApiFragment())
                         .commit()
                     true
                 }

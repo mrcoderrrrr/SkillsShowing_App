@@ -19,6 +19,7 @@
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_user_list.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_userlist_cardview.xml" value="0.22" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_add_user.xml" value="0.1" />
+        <entry key="..\:/demoapps/app/src/main/res/layout/fragment_api.xml" value="0.1" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_bottom.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_bottom_home.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_bottom_profile.xml" value="0.17074275362318841" />
@@ -30,8 +31,10 @@
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_google.xml" value="0.1" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_google_map.xml" value="0.25" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_notification.xml" value="0.18614130434782608" />
+        <entry key="..\:/demoapps/app/src/main/res/layout/fragment_retrofit.xml" value="0.18614130434782608" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_user_item_list.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_user_list.xml" value="0.1" />
+        <entry key="..\:/demoapps/app/src/main/res/layout/retrofit_data_cardview.xml" value="0.22" />
         <entry key="..\:/demoapps/app/src/main/res/menu/home_menu.xml" value="1.3464285714285715" />
         <entry key="..\:/demoapps/app/src/main/res/menu/nav_bottom_menu.xml" value="0.20364583333333333" />
         <entry key="..\:/demoapps/app/src/main/res/menu/nav_menu.xml" value="0.20364583333333333" />
