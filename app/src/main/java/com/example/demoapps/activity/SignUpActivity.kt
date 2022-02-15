@@ -10,27 +10,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivitySignupBinding
-import com.example.demoapps.model.SignUpModel
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivitySignupBinding
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private var firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private var databaseReference: DatabaseReference? = null
-    private var signUpModel: SignUpModel? = null
     private var genderVal: Any? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
         setClick()
     }
-
+    private fun setClick() {
+        //sign up data in firebase and sharedprefrence
+        dataBinding.btnSignup.setOnClickListener {
+            if (validate()) {
+                //sharedprefrence store value
+                setSharePreference()
+                //firebaseDataStrore()
+                firebaseSignUp()
+                return@setOnClickListener
+            }
+        }
+        dateOfBirth()
+        gender()
+    }
     private fun setSharePreference() {
         val sharedPreference = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
@@ -40,25 +46,20 @@ class SignUpActivity : AppCompatActivity() {
         editor.putString("Dob", dataBinding.teBirthdate.text.toString())
         editor.putString("Password", dataBinding.tePassword.text.toString())
         editor.putString("ConfirmPassword", dataBinding.teConfirmPassword.text.toString())
-        Log.d(
-            "ShareValue",
-            dataBinding.teName.text.toString() + dataBinding.teEmail.text.toString() + dataBinding.tePassword.toString() + dataBinding.teConfirmPassword.text.toString()
-        )
         editor.apply()
         //Gender Data
-
         Log.d("Data", sharedPreference.getString("Email", "").toString())
-
+        //after data was submitted go to log in activity
         setLoginScreen()
 
     }
-
+//after data was submitted go to log in activity
     private fun setLoginScreen() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }
-
+//get user birthdate
     private fun dateOfBirth() {
         val myCalendar = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -77,26 +78,15 @@ class SignUpActivity : AppCompatActivity() {
             ).show()
         }
     }
-
+//set date in format
     private fun updateDate(myCalendar: Calendar) {
         val myformat = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(myformat, Locale.UK)
         dataBinding.teBirthdate.setText(sdf.format(myCalendar.time))
     }
 
-    private fun setClick() {
-        dataBinding.btnSignup.setOnClickListener {
-            if (validate()) {
-                //setSharePreference()
-                firebaseSignUp()
-                //firebaseDataStrore()
-                return@setOnClickListener
-            }
-        }
-        dateOfBirth()
-        gender()
-    }
 
+//gender value
     private fun gender() {
         dataBinding.rgGender.setOnCheckedChangeListener({ _, checkedId ->
             when (checkedId) {
@@ -108,19 +98,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
-//    private fun firebaseDataStrore() {
-//        signUpModel = SignUpModel(
-//           0,
-//            dataBinding.teName.text.toString(),
-//            dataBinding.teEmail.text.toString(),
-//            genderVal.toString(),
-//            dataBinding.teBirthdate.text.toString()
-//        )
-//        databaseReference =
-//            firebaseDatabase.getReference("UserData").child(firebaseAuth.uid!!).child(signUpModel!!.id.toString())
-//        databaseReference!!.setValue(signUpModel)
-//    }
-
+//firebase sign up data
     private fun firebaseSignUp() {
         if (dataBinding.teEmail.text.toString()
                 .isNotEmpty() && dataBinding.tePassword.text.toString()
@@ -144,7 +122,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-
+//vaidate user data
     private fun validate(): Boolean {
         if (dataBinding.teName.text.toString().isEmpty()) {
             dataBinding.teName.setError("Name is Mandatory")

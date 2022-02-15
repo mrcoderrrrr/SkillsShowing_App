@@ -6,11 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
-import com.example.demoapps.model.ListData
 import com.example.demoapps.model.RetrofitModel
 
 class RetrofitAdapter(context: Context, private var apiData: ArrayList<RetrofitModel>) : RecyclerView.Adapter<RetrofitAdapter.ViewHolder>() {
@@ -25,25 +22,15 @@ class RetrofitAdapter(context: Context, private var apiData: ArrayList<RetrofitM
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
    // retrofitdata
-      holder.date.setText(apiData.get(position).data.list_data.get(position).date)
-        holder.height.setText(apiData.get(position).data.list_data.get(position).heigh)
+      holder.date.setText(apiData.get(position).data.list_data.get(position).date).toString()
+        holder.height.setText(apiData.get(position).data.list_data.get(position).heigh).toString()
         holder.diffrence.setText(apiData.get(position).data.list_data.get(position).difference.toString())
         if (apiData.get(position).data.list_data.get(position).is_increased == true){
-            holder.arrow.isVisible
+            holder.arrow.visibility = View.VISIBLE
         }
         else{
-            holder.arrow.isInvisible
+            holder.arrow.visibility = View.INVISIBLE
         }
-    //listdata
-       /* holder.date.setText(apiData.get(position).date)
-        holder.height.setText(apiData.get(position).heigh)
-        holder.diffrence.setText(apiData.get(position).difference)
-        if (apiData.get(position).is_increased == true){
-            holder.arrow.isVisible
-        }
-        else{
-            holder.arrow.isInvisible
-        }*/
     }
 
     override fun getItemCount(): Int {

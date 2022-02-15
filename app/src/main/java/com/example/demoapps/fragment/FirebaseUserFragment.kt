@@ -16,7 +16,6 @@ import com.example.demoapps.model.FireBaseModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import kotlin.collections.ArrayList
 
 
 class FirebaseUserFragment : Fragment() {
@@ -32,7 +31,7 @@ class FirebaseUserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_firebase_user, container, false)
         val view = dataBinding.root
@@ -46,7 +45,7 @@ class FirebaseUserFragment : Fragment() {
     }
 
     private fun floatbtn() {
-        var firebaseAddUserFragment:FirebaseAddUserFragment=FirebaseAddUserFragment()
+        val firebaseAddUserFragment=FirebaseAddUserFragment()
         dataBinding.btnFloat.setOnClickListener{
         val fragmentManager= it.context as AppCompatActivity
         fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,firebaseAddUserFragment)
@@ -61,7 +60,7 @@ class FirebaseUserFragment : Fragment() {
         databaseReference!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                        fireBaseData= ArrayList<FireBaseModel>()
+                        fireBaseData= ArrayList()
                         fireBaseModel = FireBaseModel(
                             snapshot.child("fname").value as String,
                             snapshot.child("lname").value  as String,

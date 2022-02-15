@@ -19,7 +19,7 @@ class UserItemListFragment : Fragment() {
     private lateinit var dataBinding: FragmentUserItemListBinding
     private var userId : Int?= null
     private var user: UserEntity? = null
-    val addUserFragment=AddUserFragment()
+    private val addUserFragment=AddUserFragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userId= arguments?.getInt("userId",0)
@@ -29,7 +29,7 @@ class UserItemListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding= DataBindingUtil.inflate(inflater ,R.layout.fragment_user_item_list, container, false)
         val view=dataBinding.root
         Log.d("UserId",userId.toString())

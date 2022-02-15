@@ -4,15 +4,14 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.example.demoapps.R
 import com.example.demoapps.databinding.FragmentFirebaseAddUserBinding
-
 import com.example.demoapps.model.FireBaseModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -34,7 +33,7 @@ class FirebaseAddUserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding= DataBindingUtil.inflate(inflater ,R.layout.fragment_firebase_add_user, container, false)
         val view=dataBinding.root
         setClick()
@@ -45,6 +44,8 @@ class FirebaseAddUserFragment : Fragment() {
         dateOfBirth()
         profileImage()
         gender()
+
+        //Submit Button
         dataBinding.btnSubmit.setOnClickListener {
             insertFirebaseData()
             val fragmentManager= requireView().context as AppCompatActivity
@@ -52,6 +53,7 @@ class FirebaseAddUserFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+        //Update Button
             dataBinding.btnUpdate.setOnClickListener{
                 updateFirebaseData()
                 val fragmentManager= requireView().context as AppCompatActivity
@@ -60,6 +62,8 @@ class FirebaseAddUserFragment : Fragment() {
                     .commit()
             }
         }
+
+    //Update firebase data
     private fun updateFirebaseData() {
         databaseReference = firebaseDatabase.getReference("UserData").child(firebaseUser!!.uid)
         val hashMap = HashMap<Any, Any>()
@@ -72,6 +76,8 @@ class FirebaseAddUserFragment : Fragment() {
         hashMap["imagepath"] = profile.toString()
         databaseReference!!.setValue(hashMap)
     }
+
+
     private fun dateOfBirth() {
         val myCalendar = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -90,6 +96,8 @@ class FirebaseAddUserFragment : Fragment() {
             ).show()
         }
     }
+
+
     private fun insertFirebaseData() {
         val fireBaseModel = FireBaseModel(dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
@@ -100,11 +108,15 @@ class FirebaseAddUserFragment : Fragment() {
             firebaseDatabase.getReference("UserData").child(firebaseUser!!.uid)
         databaseReference!!.setValue(fireBaseModel)
     }
+
+
     private fun updateDate(myCalendar: Calendar) {
         val myformat = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(myformat, Locale.UK)
         dataBinding.teBirthdate.setText(sdf.format(myCalendar.time))
     }
+
+
     private fun profileImage() {
         dataBinding.ciProfile.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -112,6 +124,8 @@ class FirebaseAddUserFragment : Fragment() {
             startActivityForResult(intent, 200)
         }
     }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 200 && resultCode == AppCompatActivity.RESULT_OK) {
@@ -120,8 +134,9 @@ class FirebaseAddUserFragment : Fragment() {
         }
     }
 
+
     private fun gender() {
-        dataBinding.rgGender.setOnCheckedChangeListener({ _, checkedId ->
+        dataBinding.rgGender.setOnCheckedChangeListener({_, checkedId ->
             when (checkedId) {
                 R.id.rbut_male -> genderVal = "Male"
                 R.id.rbut_female -> genderVal = "Female"

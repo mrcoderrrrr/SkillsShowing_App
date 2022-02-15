@@ -8,9 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.demoapps.R
-import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.FragmentFirebaseItemListBinding
-import com.example.demoapps.model.FireBaseModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -23,11 +21,10 @@ class FirebaseItemListFragment : Fragment() {
     private var databaseReference: DatabaseReference? = null
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var firebaseUser: FirebaseUser? = firebaseAuth.currentUser
-    private  var fireBaseModel: FireBaseModel? =null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_firebase_item_list,

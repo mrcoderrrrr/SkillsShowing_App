@@ -27,7 +27,6 @@ private lateinit var dataBinding:FragmentFileOperationBinding
     private var inputStreamReader: InputStreamReader? = null
     private var bufferedReader: BufferedReader? = null
     private var stringBuilder: StringBuilder?= null
-    private var file: File?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,13 +80,6 @@ private lateinit var dataBinding:FragmentFileOperationBinding
         dataBinding.etUserFileName.text.clear()
         dataBinding.etUserFileData.text.clear()
         Toast.makeText(requireContext(),"Data Save",Toast.LENGTH_LONG).show()
-        file= File(fileOutputStream.toString())
-        if (file!!.exists()){
-            dataBinding.tvDocTxt.setText("Aleready Exists")
-        }
-        else{
-            dataBinding.tvDocTxt.setText("New File Created")
-        }
     }
 
     private fun docFromFile() {

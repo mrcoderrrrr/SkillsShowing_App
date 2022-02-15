@@ -38,21 +38,10 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setClick() {
-        replyMessage()
         createNotificationChannel()
         dataBinding.btnNotify.setOnClickListener {
             notificationContent()
-            replyButton()
         }
-    }
-
-    private fun replyMessage() {
-
-    }
-
-    private fun replyButton() {
-
-
     }
 
 
@@ -75,7 +64,7 @@ class NotificationFragment : Fragment() {
         val replyPendingIntent: PendingIntent = PendingIntent.getBroadcast(requireContext(), 101, replyintent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
 
-        var action: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_baseline_reply_24, "Reply", replyPendingIntent)
+        val action: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_baseline_reply_24, "Reply", replyPendingIntent)
             .addRemoteInput(remoteInput)
             .setAllowGeneratedReplies(true)
             .build()

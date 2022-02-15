@@ -9,12 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
 import com.example.demoapps.entity.UserEntity
 import com.example.demoapps.fragment.UserItemListFragment
-import com.example.demoapps.model.RetrofitModel
 import com.squareup.picasso.Picasso
 
 class RecyclerViewAdapter(context: Context, private val userEntity: ArrayList<UserEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {

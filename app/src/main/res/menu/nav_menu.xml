@@ -22,14 +22,8 @@
     <item android:title="Google Map"
         android:id="@+id/nav_google_map"
         />
-    <item android:title="Custom Drawable"
-        android:id="@+id/nav_drawable"
-        />
     <item android:title="Api Calling"
         android:id="@+id/nav_api"
-        />
-    <item android:title="In-App Purchase"
-        android:id="@+id/nav_purchase"
         />
     <item android:title="Log Out"
         android:id="@+id/nav_logout"

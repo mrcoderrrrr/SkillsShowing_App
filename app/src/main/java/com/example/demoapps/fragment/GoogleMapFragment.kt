@@ -6,7 +6,6 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationListener
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,8 +16,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.demoapps.R
 import com.example.demoapps.databinding.FragmentGoogleMapBinding
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -42,7 +39,6 @@ class GoogleMapFragment : Fragment() {
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
     private lateinit var mcurrentLocations: Location
     private lateinit var mMap: GoogleMap
-    private var mGoogleApiClient: GoogleApiClient? = null
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     private val callback = OnMapReadyCallback() { googleMap ->
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -99,7 +95,6 @@ class GoogleMapFragment : Fragment() {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_google_map, container, false)
         val view = dataBinding.root
         Places.initialize(requireContext(), getString(R.string.map_api_key))
-        Log.d("Key",R.string.map_api_key.toString())
         var placesClient:PlacesClient = Places.createClient(requireContext())
         setClick()
         return view

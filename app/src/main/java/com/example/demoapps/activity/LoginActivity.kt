@@ -11,20 +11,19 @@ import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivityLoginBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityLoginBinding
-    private lateinit var sharedPreferences:SharedPreferences
-     lateinit var editor:SharedPreferences.Editor
-    private  var firebaseAuth:FirebaseAuth= FirebaseAuth.getInstance()
+    private lateinit var sharedPreferences: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+    private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        sharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
-        editor=sharedPreferences.edit()
-        editor.putBoolean("userLogin",true)
+        sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+        editor.putBoolean("userLogin", true)
         editor.commit()
         editor.apply()
         //OnClick
@@ -32,26 +31,28 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-
     private fun setClick() {
-
-
-        dataBinding.tvSignupTxt.setOnClickListener{
+        //sign up
+        dataBinding.tvSignupTxt.setOnClickListener {
             setSignUp()
         }
+        //log in
         dataBinding.butLogin.setOnClickListener {
             if (validate()) {
+                //Firebase Login
                 firebaseLogin()
                 return@setOnClickListener
             }
         }
     }
 
+    //Firebase User Login
     private fun firebaseLogin() {
-        if (dataBinding.teEmail.text.toString().isNotEmpty() && dataBinding.tePassword.text.toString()
+        if (dataBinding.teEmail.text.toString()
+                .isNotEmpty() && dataBinding.tePassword.text.toString()
                 .isNotEmpty()
         ) {
-            firebaseAuth!!.signInWithEmailAndPassword(
+            firebaseAuth.signInWithEmailAndPassword(
                 dataBinding.teEmail.text.toString(),
                 dataBinding.tePassword.text.toString()
             )
@@ -64,39 +65,45 @@ class LoginActivity : AppCompatActivity() {
                 })
         }
     }
-
+//chech value is null or not
     private fun validate(): Boolean {
         if (dataBinding.teEmail.text.toString().isEmpty()) {
             dataBinding.teEmail.setError("Username is mandatory")
         } else if (dataBinding.tePassword.text.toString().isEmpty()) {
             dataBinding.tePassword.setError("Password is mandatory")
-        }
-        else if (dataBinding.teEmail.text.toString().isEmpty() || dataBinding.tePassword.text.toString().isEmpty() ){
+        } else if (dataBinding.teEmail.text.toString()
+                .isEmpty() || dataBinding.tePassword.text.toString().isEmpty()
+        ) {
             dataBinding.teEmail.setError("Username is mandatory")
             dataBinding.tePassword.setError("Password is mandatory")
-        }
-        else {
-            sharedPreferences =getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
-            if (dataBinding.teEmail.text.toString()==(sharedPreferences.getString("Email"," ")) && dataBinding.tePassword.text.toString()==(sharedPreferences.getString("Password",""))) {
+        } else {
+            sharedPreferences = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
+            if (dataBinding.teEmail.text.toString() == (sharedPreferences.getString(
+                    "Email",
+                    " "
+                )) && dataBinding.tePassword.text.toString() == (sharedPreferences.getString(
+                    "Password",
+                    ""
+                ))
+            ) {
                 setHome()
-            } else {
             }
         }
         return true
     }
-
+        // after log in go to new activity
     private fun setHome() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
         Toast.makeText(this, "Log in Successful", Toast.LENGTH_LONG).show()
     }
-
+//sign up text to go sign up page
     private fun setSignUp() {
         dataBinding.tvSignupTxt.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
-    }
+        }
     }
 
 

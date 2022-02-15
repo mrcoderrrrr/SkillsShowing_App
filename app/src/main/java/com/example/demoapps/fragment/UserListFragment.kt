@@ -24,7 +24,7 @@ class UserListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_user_list, container, false)
         val view = dataBinding.root
@@ -38,13 +38,13 @@ class UserListFragment : Fragment() {
         floatBtn()
     }
 
-fun recyclerView() {
+private fun recyclerView() {
     userEntity = UserDatabase.getInstance(requireContext())?.userDao()!!.userViewData() as ArrayList<UserEntity>
     Log.d("UserVal", userEntity.toString())
     dataBinding.rcvUserList.apply {
         layoutManager = LinearLayoutManager(requireContext())
         dataBinding.rcvUserList.layoutManager = layoutManager
-        adpater = RecyclerViewAdapter(context, userEntity as ArrayList<UserEntity>)
+        adpater = RecyclerViewAdapter(context, userEntity)
         dataBinding.rcvUserList.adapter = adpater
     }
 }
