@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -37,6 +38,7 @@ class ApiFragment : Fragment() {
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_api, container, false)
         val view = dataBinding.root
+
         setClick()
         return view
     }
@@ -44,12 +46,13 @@ class ApiFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         chart = LineChart(requireContext())
+        graphView()
     }
 
     private fun setClick() {
         retrofit()
         //retrofitCallBack()
-        graphView()
+
     }
 
     private fun retrofit() {
@@ -57,65 +60,69 @@ class ApiFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             val result = retrofitData.getApiData()
-                apiData = ArrayList()
-                val resultData = result.body()
-                for (data in resultData!!.data.list_data) {
-                    apiData.add(resultData)
-                }
-                Log.d(
-                    "userData", result.body()?.status.toString() +
-                            result.body()?.message.toString() +
-                            result.body()?.method.toString() +
-                            result.body()!!.data +
-                            result.body()!!.success.toString()
-                )
-
-                activity?.runOnUiThread( {
-                    kotlin.run {
-                        dataBinding.rcvApiData.apply {
-                            layoutManager = LinearLayoutManager(requireContext())
-                            dataBinding.rcvApiData.layoutManager = layoutManager
-                            retrofitAdapter = RetrofitAdapter(requireContext(), apiData)
-                            dataBinding.rcvApiData.adapter = retrofitAdapter
-                            (retrofitAdapter as RetrofitAdapter).notifyDataSetChanged()
-                        }
-                    }
-                })
+            apiData = ArrayList()
+            val resultData = result.body()
+            for (data in resultData!!.data.list_data) {
+                apiData.add(resultData)
             }
+
+            Log.d(
+                "userData", result.body()?.status.toString() +
+                        result.body()?.message.toString() +
+                        result.body()?.method.toString() +
+                        result.body()!!.data +
+                        result.body()!!.success.toString()
+            )
+
+            activity?.runOnUiThread({
+                kotlin.run {
+                    dataBinding.rcvApiData.apply {
+                        layoutManager = LinearLayoutManager(requireContext())
+                        dataBinding.rcvApiData.layoutManager = layoutManager
+                        retrofitAdapter = RetrofitAdapter(requireContext(), apiData)
+                        dataBinding.rcvApiData.adapter = retrofitAdapter
+                        (retrofitAdapter as RetrofitAdapter).notifyDataSetChanged()
+                    }
+                }
+            })
+        }
     }
+
     private fun graphView() {
-        val retrofitData = RetrofitHelper.getInstance().create(RetrofitApiInterface::class.java)
-        val entry= ArrayList<Entry>()
-        CoroutineScope(Dispatchers.IO).launch {
+       // val retrofitData = RetrofitHelper.getInstance().create(RetrofitApiInterface::class.java)
+        val entry = ArrayList<Entry>()
+        entry.add(Entry(1f, 10f))
+        entry.add(Entry(2f, 20f))
+        entry.add(Entry(3f, 30f))
+        entry.add(Entry(4f, 40f))
+        entry.add(Entry(5f, 50f))
+        entry.add(Entry(6f, 60f))
+        val lineDataSet = LineDataSet(entry, "data")
+        val lineData = LineData(lineDataSet)
+        chart!!.data = lineData
+        chart!!.invalidate()
+       /* CoroutineScope(Dispatchers.IO).launch {
             val result = retrofitData.getApiData()
             apiData = ArrayList()
             val resultData = result.body()
+            if (resultData != null) {
+                val calendar = Calendar.getInstance()
+                val month = calendar.get(Calendar.MONTH)
 
-            activity?.runOnUiThread(Runnable {
-                    kotlin.run {
-                        if (resultData != null) {
-                            apiData.add(resultData)
-                            for (i in resultData.data.graph_data){
-                                Log.d("GraphVal",i.month+i.height)
-                            }
-                            for (data in resultData.data.graph_data) {
-                                entry.add(
-                                    Entry(
-                                        data.month.toFloat(),
-                                        data.height.toFloat()
-                                    )
-                                )
-                                Log.d("GraphData", data.toString())
-                            }
-                                val lineDataSet = LineDataSet(entry, "")
-                                val lineData = LineData(lineDataSet)
-                                chart!!.data =lineData
-                                chart!!.notifyDataSetChanged()
-                            }
+                for (data in resultData.data.graph_data) {
+                    val myformat = "MMM"
+                    val sdf = SimpleDateFormat(myformat, Locale.UK)
+                    data.month=sdf.format(Calendar.MONTH)
+                    entry.add(Entry(data.month.toFloatOrNull()!!, data.height.toFloat()))
+                    apiData.add(resultData)
+                }
 
-                        }
-            })
-        }
+                val lineDataSet = LineDataSet(entry, "")
+                val lineData = LineData(lineDataSet)
+                chart!!.data = lineData
+                chart!!.notifyDataSetChanged()
+            }
+        }*/
     }
 
 
