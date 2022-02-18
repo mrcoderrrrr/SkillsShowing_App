@@ -106,6 +106,12 @@ class MainActivity : AppCompatActivity() {
                         fragmentTransaction.replace(R.id.fl_userList, ApiFragment())
                             .commit()
                     }
+                R.id.nav_drawing -> {
+                    val fragmentmanager = supportFragmentManager
+                    val fragmentTransaction = fragmentmanager.beginTransaction()
+                    fragmentTransaction.replace(R.id.fl_userList, CustomDrawingFragment())
+                        .commit()
+                }
                     R.id.nav_logout -> {
                         firebaseAuth.signOut()
                         startActivity(Intent(this, LoginActivity::class.java))

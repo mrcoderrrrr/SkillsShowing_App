@@ -25,6 +25,9 @@
     <item android:title="Api Calling"
         android:id="@+id/nav_api"
         />
+    <item android:title="Canvas Drawing"
+        android:id="@+id/nav_drawing"
+        />
     <item android:title="Log Out"
         android:id="@+id/nav_logout"
         />

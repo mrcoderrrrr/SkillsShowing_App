@@ -24,13 +24,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Map.entry
 import kotlin.collections.ArrayList
 
 class ApiFragment : Fragment() {
     private lateinit var dataBinding: FragmentApiBinding
     private var retrofitAdapter: RecyclerView.Adapter<RetrofitAdapter.ViewHolder>? = null
     private lateinit var apiData: ArrayList<RetrofitModel>
-    private var chart: LineChart? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,16 +43,11 @@ class ApiFragment : Fragment() {
         return view
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        chart = LineChart(requireContext())
-        graphView()
-    }
 
     private fun setClick() {
         retrofit()
         //retrofitCallBack()
-
+        graphView()
     }
 
     private fun retrofit() {
@@ -89,40 +84,29 @@ class ApiFragment : Fragment() {
     }
 
     private fun graphView() {
-       // val retrofitData = RetrofitHelper.getInstance().create(RetrofitApiInterface::class.java)
-        val entry = ArrayList<Entry>()
-        entry.add(Entry(1f, 10f))
-        entry.add(Entry(2f, 20f))
-        entry.add(Entry(3f, 30f))
-        entry.add(Entry(4f, 40f))
-        entry.add(Entry(5f, 50f))
-        entry.add(Entry(6f, 60f))
-        val lineDataSet = LineDataSet(entry, "data")
-        val lineData = LineData(lineDataSet)
-        chart!!.data = lineData
-        chart!!.invalidate()
-       /* CoroutineScope(Dispatchers.IO).launch {
-            val result = retrofitData.getApiData()
-            apiData = ArrayList()
-            val resultData = result.body()
-            if (resultData != null) {
-                val calendar = Calendar.getInstance()
-                val month = calendar.get(Calendar.MONTH)
+         val retrofitData = RetrofitHelper.getInstance().create(RetrofitApiInterface::class.java)
+
+         CoroutineScope(Dispatchers.IO).launch {
+             val result = retrofitData.getApiData()
+             apiData = ArrayList()
+             val resultData = result.body()
+             if (resultData != null) {
+                 val entry=ArrayList<Entry>()
+                 val calendar = Calendar.getInstance()
 
                 for (data in resultData.data.graph_data) {
-                    val myformat = "MMM"
-                    val sdf = SimpleDateFormat(myformat, Locale.UK)
-                    data.month=sdf.format(Calendar.MONTH)
-                    entry.add(Entry(data.month.toFloatOrNull()!!, data.height.toFloat()))
+                    val mmm = SimpleDateFormat("MMM")
+                    val mm=SimpleDateFormat("MM")
+                    val xValue=mm.format(mmm.parse(data.month))
+                    entry.add(Entry(xValue.toFloat(), data.height.toFloat()))
                     apiData.add(resultData)
                 }
-
-                val lineDataSet = LineDataSet(entry, "")
-                val lineData = LineData(lineDataSet)
-                chart!!.data = lineData
-                chart!!.notifyDataSetChanged()
-            }
-        }*/
+                 val lineDataSet = LineDataSet(entry, "")
+                 val lineData = LineData(lineDataSet)
+                  dataBinding.gvApiGraph.data = lineData
+         dataBinding.gvApiGraph.invalidate()
+             }
+         }
     }
 
 
