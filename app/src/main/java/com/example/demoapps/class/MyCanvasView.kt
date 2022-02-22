@@ -1,6 +1,7 @@
 package com.example.demoapps.`class`
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.*
 import android.os.Environment
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.example.demoapps.R
@@ -118,13 +120,16 @@ class MyCanvasView(context: Context) : View(context){
                e.printStackTrace()
        }
         return extraBitmap
+
     }
-   /* fun getBitmap(): Bitmap? {
-        extraBitmap = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888)
-        extraCanvas = Canvas(extraBitmap)
-        extraCanvas.drawBitmap(extraBitmap!!,
-            Rect(0,0, extraBitmap!!.getWidth(),extraBitmap.getHeight()), Rect(0,0,320,480), null)
+
+    fun setImage(){
+        extraCanvas.setBitmap(extraBitmap)
+        extraBitmap
+    }
+
+    fun getBitmap(): Bitmap {
         extraCanvas.setBitmap(extraBitmap)
         return extraBitmap
-    }*/
+    }
 }

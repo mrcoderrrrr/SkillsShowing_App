@@ -1,6 +1,7 @@
 package com.example.demoapps.fragment
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
@@ -21,7 +22,7 @@ import java.io.*
 
 class CustomDrawingFragment : Fragment(){
     private lateinit var dataBinding: FragmentCustomDrawingBinding
-    private lateinit var extraBitmap:Bitmap
+    private  var extraBitmap: Bitmap? =null
     private lateinit var extraCanvas:Canvas
     private lateinit var myCanvasView: MyCanvasView
     override fun onCreateView(
@@ -42,8 +43,11 @@ setClick()
 
     private fun setClick() {
         dataBinding.btnSavefile.setOnClickListener {
-            myCanvasView.setClick()
+           // myCanvasView.setClick()
+            val bitmap=myCanvasView.getBitmap()
+            dataBinding.ivSignature.setImageBitmap(bitmap)
         }
+
     }
 
 
