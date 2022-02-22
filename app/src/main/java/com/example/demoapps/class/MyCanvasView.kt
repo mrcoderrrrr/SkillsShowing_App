@@ -92,9 +92,12 @@ class MyCanvasView(context: Context) : View(context){
         path.reset()
     }
 
-    fun setClick(){
-           extraCanvas.setBitmap(extraBitmap)
-           val outputStream: OutputStream
+    fun setClick(): Bitmap {
+        this.setDrawingCacheEnabled(true)
+        this.buildDrawingCache()
+        this.setDrawingCacheEnabled(false)
+        extraCanvas.setBitmap(extraBitmap)
+           var outputStream: OutputStream? =null
            val filepath: File = Environment.getExternalStorageDirectory()
            val dir = File(filepath.getAbsoluteFile().toString() + "/SaveImage")
            dir.mkdir()
@@ -114,6 +117,7 @@ class MyCanvasView(context: Context) : View(context){
            } catch (e: IOException) {
                e.printStackTrace()
        }
+        return extraBitmap
     }
    /* fun getBitmap(): Bitmap? {
         extraBitmap = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888)
