@@ -1,14 +1,11 @@
 package com.example.demoapps.`class`
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewConfiguration
 import android.widget.Button
 import android.widget.Toast
@@ -16,8 +13,9 @@ import androidx.core.content.res.ResourcesCompat
 import com.example.demoapps.R
 import java.io.*
 
+
 private val STROKE_WIDTH=12f
-class MyCanvasView(context: Context) : View(context) {
+class MyCanvasView(context: Context) : View(context){
     private var saveBtn: Button? =null
     private lateinit var extraCanvas: Canvas
     private lateinit var extraBitmap: Bitmap
@@ -46,7 +44,6 @@ class MyCanvasView(context: Context) : View(context) {
         super.onSizeChanged(w, h, oldw, oldh)
         extraBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         extraCanvas = Canvas(extraBitmap)
-        extraCanvas.setBitmap(extraBitmap)
         extraCanvas.drawColor(backGroundColor)
 
        /* val inset = 40
@@ -56,7 +53,7 @@ class MyCanvasView(context: Context) : View(context) {
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas!!.drawBitmap(extraBitmap,0f,0f,null)
-        saveImage()
+
 //        canvas.drawRect(frame, paint!!)
     }
 
@@ -95,33 +92,35 @@ class MyCanvasView(context: Context) : View(context) {
         path.reset()
     }
 
-
-    private fun saveImage() {
-
-        saveBtn?.setOnClickListener {
-            val outputStream: OutputStream
-            val filepath: File = Environment.getExternalStorageDirectory()
-            val dir = File(filepath.getAbsoluteFile().toString() + "/SaveImage")
-            dir.mkdir()
-            val fileName = System.currentTimeMillis().toString() + ".jpg"
-            val file = File(dir, fileName)
-            try {
-                outputStream = FileOutputStream(file)
-                //Bitmap image
-                extraBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-                //flush or close
-                outputStream.flush()
-                outputStream.close()
-                //image view in gallery
-                val imageView = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-                imageView.data = Uri.fromFile(file)
-                context.sendBroadcast(imageView)
-                Toast.makeText(context, "Save in Gallery", Toast.LENGTH_LONG).show()
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
+    fun setClick(){
+           extraCanvas.setBitmap(extraBitmap)
+           val outputStream: OutputStream
+           val filepath: File = Environment.getExternalStorageDirectory()
+           val dir = File(filepath.getAbsoluteFile().toString() + "/SaveImage")
+           dir.mkdir()
+           val fileName = System.currentTimeMillis().toString() + ".jpg"
+           val file = File(dir, fileName)
+           try {
+               outputStream = FileOutputStream(file)
+               //Bitmap image
+               extraBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+               //flush or close
+               outputStream.flush()
+               outputStream.close()
+               Toast.makeText(context, "Save in Gallery", Toast.LENGTH_LONG).show()
+               Log.d("SaveData", "Data")
+           } catch (e: FileNotFoundException) {
+               e.printStackTrace()
+           } catch (e: IOException) {
+               e.printStackTrace()
+       }
     }
+   /* fun getBitmap(): Bitmap? {
+        extraBitmap = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888)
+        extraCanvas = Canvas(extraBitmap)
+        extraCanvas.drawBitmap(extraBitmap!!,
+            Rect(0,0, extraBitmap!!.getWidth(),extraBitmap.getHeight()), Rect(0,0,320,480), null)
+        extraCanvas.setBitmap(extraBitmap)
+        return extraBitmap
+    }*/
 }
