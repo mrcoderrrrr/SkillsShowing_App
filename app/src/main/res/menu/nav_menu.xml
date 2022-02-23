@@ -10,7 +10,7 @@
     <item android:title="Social Login"
         android:id="@+id/nav_social"
         />
-    <item android:title="Firebaser Operation"
+    <item android:title="Firebase Operation"
         android:id="@+id/nav_firebase"
         />
     <item android:title="Bottom Menu"

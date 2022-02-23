@@ -9,6 +9,7 @@
         <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_format_list_bulleted_24.xml" value="0.21979166666666666" />
         <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.21979166666666666" />
         <entry key="..\:/demoapps/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.116" />
+        <entry key="..\:/demoapps/app/src/main/res/drawable/spinner_border.xml" value="0.116" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_add_user.xml" value="0.17481884057971014" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/demoapps/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -25,7 +26,7 @@
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_bottom_profile.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_bottom_user_list.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_custom_drawing.xml" value="0.18614130434782608" />
-        <entry key="..\:/demoapps/app/src/main/res/layout/fragment_file_operation.xml" value="0.37037037037037035" />
+        <entry key="..\:/demoapps/app/src/main/res/layout/fragment_file_operation.xml" value="0.1" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_firebase_add_user.xml" value="0.18614130434782608" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_firebase_item_list.xml" value="0.18614130434782608" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_firebase_user.xml" value="0.17074275362318841" />
@@ -38,6 +39,7 @@
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_user_item_list.xml" value="0.17074275362318841" />
         <entry key="..\:/demoapps/app/src/main/res/layout/fragment_user_list.xml" value="0.1" />
         <entry key="..\:/demoapps/app/src/main/res/layout/retrofit_data_cardview.xml" value="0.22" />
+        <entry key="..\:/demoapps/app/src/main/res/layout/spinner_option.xml" value="0.18614130434782608" />
         <entry key="..\:/demoapps/app/src/main/res/menu/home_menu.xml" value="1.3464285714285715" />
         <entry key="..\:/demoapps/app/src/main/res/menu/nav_bottom_menu.xml" value="0.20364583333333333" />
         <entry key="..\:/demoapps/app/src/main/res/menu/nav_menu.xml" value="0.20364583333333333" />

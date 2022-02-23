@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
@@ -42,6 +43,19 @@ class NotificationFragment : Fragment() {
         dataBinding.btnNotify.setOnClickListener {
             notificationContent()
         }
+        onBackPressed()
+    }
+
+    private fun onBackPressed() {
+        val backPressedCallback=object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val intent=Intent(requireContext(),MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
+
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
     }
 
 

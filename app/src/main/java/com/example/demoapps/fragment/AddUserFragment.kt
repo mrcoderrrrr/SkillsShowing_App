@@ -9,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.demoapps.R
+import com.example.demoapps.activity.MainActivity
 import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.FragmentAddUserBinding
 import com.example.demoapps.entity.UserEntity
@@ -43,7 +45,6 @@ class AddUserFragment : Fragment() {
     }
 
     private fun setClick() {
-
         dateOfBirth()
         profileImage()
         gender()
@@ -67,7 +68,6 @@ class AddUserFragment : Fragment() {
 
         }
     }
-
 
 
 

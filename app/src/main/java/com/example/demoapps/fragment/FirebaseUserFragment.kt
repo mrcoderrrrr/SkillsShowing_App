@@ -1,15 +1,18 @@
 package com.example.demoapps.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
+import com.example.demoapps.activity.MainActivity
 import com.example.demoapps.adapter.FirebaseAdapter
 import com.example.demoapps.databinding.FragmentFirebaseUserBinding
 import com.example.demoapps.model.FireBaseModel
@@ -42,6 +45,19 @@ class FirebaseUserFragment : Fragment() {
     private fun setClick() {
         recyclerView()
         floatbtn()
+        onBackpressed()
+    }
+
+    private fun onBackpressed() {
+        val backPressedCallback=object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val intent= Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
+
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
     }
 
     private fun floatbtn() {

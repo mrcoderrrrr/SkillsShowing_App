@@ -11,10 +11,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.demoapps.R
+import com.example.demoapps.activity.MainActivity
 import com.example.demoapps.databinding.FragmentGoogleMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -45,7 +48,12 @@ class GoogleMapFragment : Fragment() {
         currentLocation(googleMap)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.hide()
 
+
+    }
 
     private fun currentLocation(googleMap: GoogleMap) {
         if (ActivityCompat.checkSelfPermission(
@@ -96,6 +104,15 @@ class GoogleMapFragment : Fragment() {
         val view = dataBinding.root
         Places.initialize(requireContext(), getString(R.string.map_api_key))
         var placesClient:PlacesClient = Places.createClient(requireContext())
+        val backPressedCallback=object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val intent=Intent(requireContext(),MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
+
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
         setClick()
         return view
     }
@@ -143,5 +160,4 @@ class GoogleMapFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
 
     }
-
 }
