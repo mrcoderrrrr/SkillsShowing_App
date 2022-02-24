@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">demoapps</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="map_api_key">AIzaSyDnulUFO7umIYyZgKNVzhxNywiDULn04_A</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reply_label">ReplyMsg</string>
+    <string name="Reply_Msg">Reply</string>
+
+    <string name="facebook_app_id">1081651199348146</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
+    <string name="Home">घर</string>
+    <string name="FileOperation">फ़ाइल संचालन</string>
+    <string name="SocailLogin">सामाजिक लॉगिन</string>
+    <string name="Firebase">फायरबेस ऑपरेशन</string>
+    <string name="BottomMenu">निचला मेनू</string>
+    <string name="Notification">अधिसूचना</string>
+    <string name="GoogleMap">गूगल नक़्शे</string>
+    <string name="ApiCalling">एपी कॉलिंग</string>
+    <string name="CanvasDraw">कैनवास ड्रा</string>
+    <string name="LogOut">लॉग आउट</string>
+</resources>

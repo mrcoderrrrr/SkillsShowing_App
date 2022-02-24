@@ -13,4 +13,16 @@
     <string name="facebook_client_token">56789</string>
 
 
+    <string name="Home">Home</string>
+    <string name="FileOperation">File Operation</string>
+    <string name="SocailLogin">Social Login</string>
+    <string name="Firebase">Firebase</string>
+    <string name="BottomMenu">Bottom Menu</string>
+    <string name="Notification">Notification</string>
+    <string name="GoogleMap">Google Map</string>
+    <string name="ApiCalling">Api Calling</string>
+    <string name="CanvasDraw">Canvas Drawing</string>
+    <string name="LogOut">Log Out</string>
+
+
 </resources>
