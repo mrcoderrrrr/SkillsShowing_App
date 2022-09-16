@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.bottomNavigation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.demoapps.R
-import com.example.demoapps.databinding.FragmentBottomProfileBinding
+import com.example.demoapps.databinding.FragmentBottomUserListBinding
 
 
-class BottomProfileFragment : Fragment() {
-    private lateinit var dataBinding: FragmentBottomProfileBinding
+class BottomUserListFragment : Fragment() {
+    private lateinit var dataBinding: FragmentBottomUserListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {dataBinding= DataBindingUtil.inflate(inflater ,R.layout.fragment_bottom_profile, container, false)
+    ): View {
+        dataBinding= DataBindingUtil.inflate(inflater ,R.layout.fragment_bottom_user_list, container, false)
         val view=dataBinding.root
         // Inflate the layout for this fragment
         return view

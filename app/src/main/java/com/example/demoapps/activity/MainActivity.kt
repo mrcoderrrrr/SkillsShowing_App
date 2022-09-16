@@ -4,10 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -21,10 +19,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoapps.R
 import com.example.demoapps.databinding.ActivityMainBinding
-import com.example.demoapps.fragment.*
+import com.example.demoapps.fragment.api.ApiFragment
+import com.example.demoapps.fragment.bottomNavigation.BottomFragment
+import com.example.demoapps.fragment.fileOperation.FileOperationFragment
+import com.example.demoapps.fragment.firebase.FirebaseUserFragment
+import com.example.demoapps.fragment.notification.NotificationFragment
+import com.example.demoapps.fragment.roomDatabase.UserListFragment
+import com.example.demoapps.fragment.signature.CustomDrawingFragment
+import com.example.demoapps.fragment.googleMap.GoogleMapFragment
+import com.example.demoapps.fragment.socialLogin.SocialLoginFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import org.intellij.lang.annotations.Language
 import java.util.*
 
 

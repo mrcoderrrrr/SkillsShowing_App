@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.api
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,7 +18,6 @@ import com.example.demoapps.databinding.FragmentApiBinding
 import com.example.demoapps.model.RetrofitModel
 import com.example.demoapps.retrofit.RetrofitApiInterface
 import com.example.demoapps.retrofit.RetrofitHelper
-import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -27,7 +26,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Map.entry
 import kotlin.collections.ArrayList
 
 class ApiFragment : Fragment() {
@@ -48,7 +46,7 @@ class ApiFragment : Fragment() {
 
 
     private fun setClick() {
-        retrofit()
+      //  retrofit()
         //retrofitCallBack()
         graphView()
         onBackPressed()
@@ -85,7 +83,7 @@ class ApiFragment : Fragment() {
                         result.body()!!.success.toString()
             )
 
-            activity?.runOnUiThread({
+            activity?.runOnUiThread {
                 kotlin.run {
                     dataBinding.rcvApiData.apply {
                         layoutManager = LinearLayoutManager(requireContext())
@@ -95,7 +93,7 @@ class ApiFragment : Fragment() {
                         (retrofitAdapter as RetrofitAdapter).notifyDataSetChanged()
                     }
                 }
-            })
+            }
         }
     }
 

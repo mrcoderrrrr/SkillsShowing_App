@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.signature
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -10,9 +10,10 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+
 import androidx.fragment.app.Fragment
 import com.example.demoapps.R
-import com.example.demoapps.`class`.MyCanvasView
+import com.example.demoapps.fragment.signature.MyCanvasView
 import com.example.demoapps.activity.MainActivity
 import com.example.demoapps.databinding.FragmentCustomDrawingBinding
 

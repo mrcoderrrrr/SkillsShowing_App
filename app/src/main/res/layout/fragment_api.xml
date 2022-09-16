@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.ApiFragment">
+        tools:context=".fragment.api.ApiFragment">
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/gv_apiGraph"

@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.roomDatabase
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -9,12 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.demoapps.R
-import com.example.demoapps.activity.MainActivity
 import com.example.demoapps.database.UserDatabase
 import com.example.demoapps.databinding.FragmentAddUserBinding
 import com.example.demoapps.entity.UserEntity
@@ -25,11 +27,12 @@ import java.util.*
 class AddUserFragment : Fragment() {
     private lateinit var dataBinding: FragmentAddUserBinding
     private var genderVal = ""
-    private var userId: Int? = 0
+    private var userId: Int? =null
     private var profile: Uri? = null
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userId = arguments?.getInt("userId", 0)
+        userId = requireArguments().getInt("userId", 0)
         Log.d("UserID", userId.toString())
     }
 
@@ -48,32 +51,26 @@ class AddUserFragment : Fragment() {
         dateOfBirth()
         profileImage()
         gender()
-        if (userId!! >= 1 ) {
-            dataBinding.btnSubmit.setOnClickListener {
+        dataBinding.btnSubmit.setOnClickListener {
+            if (userId!! >= 1) {
                 updateUserData()
                 val fragmentmanager = it.context as AppCompatActivity
                 fragmentmanager.supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_userList, UserListFragment())
                     .commit()
+            } else if (userId == null || userId == 0) {
+                    insertSharedPrefrenceData()
+                    val fragmentmanager = it.context as AppCompatActivity
+                    fragmentmanager.supportFragmentManager.beginTransaction()
+                        .replace(R.id.fl_userList, UserListFragment())
+                        .commit()
             }
-        } else if (userId == null || userId == 0) {
-            dataBinding.btnSubmit.setOnClickListener {
-
-                insertSharedPrefrenceData()
-                val fragmentmanager = it.context as AppCompatActivity
-                fragmentmanager.supportFragmentManager.beginTransaction()
-                    .replace(R.id.fl_userList, UserListFragment())
-                    .commit()
-            }
-
         }
     }
 
 
-
-
     private fun updateUserData() {
-      val userEntity = UserEntity(
+        val userEntity = UserEntity(
             userId!!, dataBinding.teFullName.text.toString(),
             dataBinding.teLastName.text.toString(),
             genderVal,
@@ -94,30 +91,44 @@ class AddUserFragment : Fragment() {
     }
 
     private fun gender() {
-        dataBinding.rgGender.setOnCheckedChangeListener({ _, checkedId ->
+        dataBinding.rgGender.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbut_male -> genderVal = "Male"
                 R.id.rbut_female -> genderVal = "Female"
                 else -> genderVal = null.toString()
             }
-        })
+        }
     }
 
     private fun profileImage() {
+        getProfile()
         dataBinding.ciProfile.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            startActivityForResult(intent, 200)
+            resultLauncher.launch(intent)
+//            startActivityForResult(intent, 200)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 200 && resultCode == AppCompatActivity.RESULT_OK) {
-            profile = data?.data
-            dataBinding.ciProfile.setImageURI(profile)
-        }
+    private fun getProfile() {
+        resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+            ActivityResultCallback<ActivityResult>() {
+                var data: Intent = it.data!!
+                if (data != null) {
+                    profile = data.data
+                    dataBinding.ciProfile.setImageURI(profile)
+                }
+            }
+        )
     }
+    /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+         super.onActivityResult(requestCode, resultCode, data)
+         if (requestCode == 200 && resultCode == AppCompatActivity.RESULT_OK) {
+             profile = data?.data
+             dataBinding.ciProfile.setImageURI(profile)
+         }
+     }*/
 
     private fun dateOfBirth() {
         val myCalendar = Calendar.getInstance()

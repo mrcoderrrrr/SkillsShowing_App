@@ -10,4 +10,6 @@
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorPaint">#000000</color>
     <color name="grey">#B8B5B5</color>
+    <color name="violet">#3F51B5</color>
+
 </resources>

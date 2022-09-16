@@ -1,8 +1,7 @@
 package com.example.demoapps.model
 
-import android.net.Uri
-
-data class FireBaseModel(
+data class
+FireBaseModel(
     var fname:String,
     var lname:String,
     var gender:String,

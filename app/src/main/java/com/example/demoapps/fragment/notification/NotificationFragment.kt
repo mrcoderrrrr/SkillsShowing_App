@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.notification
 
 import android.app.*
 import android.content.Context

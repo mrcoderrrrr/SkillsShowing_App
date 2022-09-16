@@ -73,7 +73,7 @@
             android:id="@+id/tv_gender_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="56dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="248dp"
             android:gravity="center"
@@ -89,8 +89,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tl_birthdate"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="302dp"
-            android:layout_height="53dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="56dp"
@@ -106,14 +106,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="DOB"
+                android:focusable="false"
                 android:textAllCaps="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tl_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="302dp"
-            android:layout_height="53dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="56dp"
@@ -132,8 +133,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tl_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="302dp"
-            android:layout_height="53dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="56dp"
@@ -149,14 +150,15 @@
                 android:hint="Last Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
-            android:layout_width="159dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="117dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="14dp"
-            android:layout_marginEnd="135dp"
+            android:layout_marginEnd="100dp"
             android:text="Submit"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package com.example.demoapps.`class`
+package com.example.demoapps.fragment.signature
 
 import android.content.Context
 import android.content.res.Resources

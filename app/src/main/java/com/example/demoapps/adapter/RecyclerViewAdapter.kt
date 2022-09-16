@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
 import com.example.demoapps.entity.UserEntity
-import com.example.demoapps.fragment.UserItemListFragment
+import com.example.demoapps.fragment.roomDatabase.UserItemListFragment
 import com.squareup.picasso.Picasso
 
 class RecyclerViewAdapter(context: Context, private val userEntity: ArrayList<UserEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -38,7 +38,7 @@ class RecyclerViewAdapter(context: Context, private val userEntity: ArrayList<Us
             .resize(70,70)
             .into(holder.Profile)
         holder.itemView.setOnClickListener {
-            val userItemListFragment=UserItemListFragment()
+            val userItemListFragment= UserItemListFragment()
             val bundle=Bundle()
             bundle.putInt("userId", userEntity.get(position).id)
             userItemListFragment.arguments=bundle

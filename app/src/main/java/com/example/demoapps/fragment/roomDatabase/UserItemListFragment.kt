@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.roomDatabase
 
 import android.os.Bundle
 import android.util.Log
@@ -19,7 +19,8 @@ class UserItemListFragment : Fragment() {
     private lateinit var dataBinding: FragmentUserItemListBinding
     private var userId : Int?= null
     private var user: UserEntity? = null
-    private val addUserFragment=AddUserFragment()
+    private val addUserFragment= AddUserFragment()
+    private var bundle=Bundle()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userId= arguments?.getInt("userId",0)
@@ -32,7 +33,7 @@ class UserItemListFragment : Fragment() {
     ): View {
         dataBinding= DataBindingUtil.inflate(inflater ,R.layout.fragment_user_item_list, container, false)
         val view=dataBinding.root
-        Log.d("UserId",userId.toString())
+        Log.d("UserIds",userId.toString())
         setClick()
         return view
     }
@@ -69,7 +70,8 @@ class UserItemListFragment : Fragment() {
     }
 
     private fun updateData(view: View) {
-        addUserFragment.arguments=arguments
+        bundle.putInt("userId", userId!!)
+        addUserFragment.arguments=bundle
         val fragmentManager=view.context as AppCompatActivity
         fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,addUserFragment)
             .addToBackStack(null)

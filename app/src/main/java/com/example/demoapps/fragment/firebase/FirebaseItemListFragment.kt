@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.firebase
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,7 +44,7 @@ class FirebaseItemListFragment : Fragment() {
     }
 
     private fun updateData(view: View) {
-        val firebaseAddUserFragment=FirebaseAddUserFragment()
+        val firebaseAddUserFragment= FirebaseAddUserFragment()
         val fragmentManager=view.context as AppCompatActivity
         fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,firebaseAddUserFragment)
             .addToBackStack(null)
@@ -52,7 +52,7 @@ class FirebaseItemListFragment : Fragment() {
     }
 
     private fun viewFirebaseData() {
-        databaseReference = firebaseDatabase.getReference("UserData").child(firebaseUser!!.uid)
+        databaseReference = firebaseDatabase.getReference("userData").child(firebaseUser!!.uid)
         databaseReference!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Picasso.get()

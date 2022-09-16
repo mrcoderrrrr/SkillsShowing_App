@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.googleMap
 
 import android.Manifest
 import android.app.Activity

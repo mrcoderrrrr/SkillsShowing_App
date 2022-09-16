@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/fl_addUser"
-        tools:context=".fragment.GoogleMapFragment"
+        tools:context=".fragment.googleMap.GoogleMapFragment"
         >
 
 

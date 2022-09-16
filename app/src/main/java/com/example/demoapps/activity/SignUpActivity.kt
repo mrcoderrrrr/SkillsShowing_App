@@ -31,27 +31,32 @@ class SignUpActivity : AppCompatActivity() {
                 setSharePreference()
                 //firebaseDataStrore()
                 firebaseSignUp()
-                return@setOnClickListener
             }
         }
         dateOfBirth()
         gender()
     }
     private fun setSharePreference() {
-        val sharedPreference = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
-        val editor = sharedPreference.edit()
-        editor.putString("Name", dataBinding.teName.text.toString())
-        editor.putString("Email", dataBinding.teEmail.text.toString())
-        editor.putString("Gender", genderVal.toString())
-        editor.putString("Dob", dataBinding.teBirthdate.text.toString())
-        editor.putString("Password", dataBinding.tePassword.text.toString())
-        editor.putString("ConfirmPassword", dataBinding.teConfirmPassword.text.toString())
-        editor.apply()
-        //Gender Data
-        Log.d("Data", sharedPreference.getString("Email", "").toString())
-        //after data was submitted go to log in activity
-        setLoginScreen()
-
+        if (dataBinding.tePassword.text.toString()
+                .equals(dataBinding.teConfirmPassword.text.toString())
+        ) {
+            val sharedPreference = getSharedPreferences("SignUpData", Context.MODE_PRIVATE)
+            val editor = sharedPreference.edit()
+            editor.putString("Name", dataBinding.teName.text.toString())
+            editor.putString("Email", dataBinding.teEmail.text.toString())
+            editor.putString("Gender", genderVal.toString())
+            editor.putString("Dob", dataBinding.teBirthdate.text.toString())
+            editor.putString("Password", dataBinding.tePassword.text.toString())
+            editor.putString("ConfirmPassword", dataBinding.teConfirmPassword.text.toString())
+            editor.apply()
+            //Gender Data
+            Log.d("Data", sharedPreference.getString("Email", "").toString())
+            //after data was submitted go to log in activity
+            setLoginScreen()
+        }
+        else{
+          Toast.makeText(this,"Password doesn't matched",Toast.LENGTH_SHORT).show()
+        }
     }
 //after data was submitted go to log in activity
     private fun setLoginScreen() {
@@ -100,41 +105,48 @@ class SignUpActivity : AppCompatActivity() {
 
 //firebase sign up data
     private fun firebaseSignUp() {
-        if (dataBinding.teEmail.text.toString()
-                .isNotEmpty() && dataBinding.tePassword.text.toString()
-                .isNotEmpty()
-        ) {
-            firebaseAuth.createUserWithEmailAndPassword(
-                dataBinding.teEmail.text.toString(),
-                dataBinding.tePassword.text.toString()
-            )
-                .addOnCompleteListener(this){ task ->
-                    if (task.isSuccessful) {
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        Toast.makeText(
-                            this, "Invalid", Toast.LENGTH_LONG
-                        ).show()
+            if (dataBinding.tePassword.text.toString()
+                    .equals(dataBinding.teConfirmPassword.text.toString())
+            ) {
+                firebaseAuth.createUserWithEmailAndPassword(
+                    dataBinding.teEmail.text.toString(),
+                    dataBinding.teConfirmPassword.text.toString()
+                )
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this, "Invalid", Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
-                }
         }
+    else{
+                Toast.makeText(this,"Password doesn't matched",Toast.LENGTH_SHORT).show()
+    }
     }
 
 //vaidate user data
     private fun validate(): Boolean {
         if (dataBinding.teName.text.toString().isEmpty()) {
             dataBinding.teName.setError("Name is Mandatory")
+            return false
         } else if (dataBinding.teEmail.text.toString().isEmpty()) {
             dataBinding.teEmail.setError("Email is Mandatory")
+            return false
         } else if (dataBinding.teBirthdate.text.toString().isEmpty()) {
             dataBinding.teBirthdate.setError("Birthdate is Mandatory")
+            return false
         } else if (dataBinding.tePassword.text.toString().isEmpty()) {
-            dataBinding.tePassword.setError("Password is Mandatory")
-        } else if (dataBinding.teConfirmPassword.text.toString().isEmpty()) {
-            dataBinding.teConfirmPassword.setError("Password is Mandatory")
-        } else if (!dataBinding.rbutMale.isChecked && !dataBinding.rbutFemale.isChecked) {
+            Toast.makeText(this,"Password is Mandatory",Toast.LENGTH_SHORT).show()
+        }
+        else if (dataBinding.teConfirmPassword.text.toString().isEmpty()) {
+            Toast.makeText(this,"Password is Mandatory",Toast.LENGTH_SHORT).show()
+        }
+        else if (!dataBinding.rbutMale.isChecked && !dataBinding.rbutFemale.isChecked) {
             dataBinding.tvGenderTxt.setError("Gender selection are mandatory")
         } else {
             Toast.makeText(this, "Details Are Submitted", Toast.LENGTH_LONG).show()

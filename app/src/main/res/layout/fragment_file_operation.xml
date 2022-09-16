@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="713dp"
-        tools:context=".fragment.FileOperationFragment">
+        tools:context=".fragment.fileOperation.FileOperationFragment">
 
         <Spinner
             android:id="@+id/s_option"

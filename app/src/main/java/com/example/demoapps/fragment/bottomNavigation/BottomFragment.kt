@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.bottomNavigation
 
 import android.content.Intent
 import android.os.Bundle
@@ -49,19 +49,19 @@ class BottomFragment : Fragment() {
             var tempFragment:Fragment? = Fragment()
             when(it.itemId){
                 R.id.nav_home ->{
-                    tempFragment=BottomHomeFragment()
+                    tempFragment= BottomHomeFragment()
                     requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.fl_bottom,tempFragment)
                         .commit()
                 }
                 R.id.nav_userList ->{
-                    tempFragment=BottomUserListFragment()
+                    tempFragment= BottomUserListFragment()
                     requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.fl_bottom,tempFragment)
                         .commit()
                 }
                 R.id.nav_profile ->{
-                    tempFragment=BottomProfileFragment()
+                    tempFragment= BottomProfileFragment()
                     requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.fl_bottom,tempFragment)
                         .commit()

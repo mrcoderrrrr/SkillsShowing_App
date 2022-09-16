@@ -1,4 +1,4 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.firebase
 
 import android.content.Intent
 import android.os.Bundle
@@ -61,7 +61,7 @@ class FirebaseUserFragment : Fragment() {
     }
 
     private fun floatbtn() {
-        val firebaseAddUserFragment=FirebaseAddUserFragment()
+        val firebaseAddUserFragment= FirebaseAddUserFragment()
         dataBinding.btnFloat.setOnClickListener{
         val fragmentManager= it.context as AppCompatActivity
         fragmentManager.supportFragmentManager.beginTransaction().replace(R.id.fl_userList,firebaseAddUserFragment)
@@ -72,7 +72,7 @@ class FirebaseUserFragment : Fragment() {
 
     private fun recyclerView() {
 
-        databaseReference = firebaseDatabase.getReference("UserData").child(firebaseUser!!.uid)
+        databaseReference = firebaseDatabase.getReference("userData").child(firebaseUser!!.uid)
         databaseReference!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {

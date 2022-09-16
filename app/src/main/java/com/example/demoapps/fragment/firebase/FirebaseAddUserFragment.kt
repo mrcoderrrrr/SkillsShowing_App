@@ -1,5 +1,6 @@
-package com.example.demoapps.fragment
+package com.example.demoapps.fragment.firebase
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +8,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -29,7 +34,8 @@ class FirebaseAddUserFragment : Fragment() {
     private var firebaseUser:FirebaseUser? = firebaseAuth.currentUser
     private var genderVal = ""
     private var profile: Uri? = null
-    val firebaseUserFragment=FirebaseUserFragment()
+    val firebaseUserFragment= FirebaseUserFragment()
+    private lateinit var resultLauncher:ActivityResultLauncher<Intent>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,7 +71,7 @@ class FirebaseAddUserFragment : Fragment() {
 
     //Update firebase data
     private fun updateFirebaseData() {
-        databaseReference = firebaseDatabase.getReference("UserData").child(firebaseUser!!.uid)
+        databaseReference = firebaseDatabase.getReference("userData").child(firebaseUser!!.uid)
         val hashMap = HashMap<Any, Any>()
         //personal Details
         //personal Details
@@ -105,7 +111,7 @@ class FirebaseAddUserFragment : Fragment() {
             dataBinding.teBirthdate.text.toString(), profile.toString()
         )
         databaseReference =
-            firebaseDatabase.getReference("UserData").child(firebaseUser!!.uid)
+            firebaseDatabase.getReference("userData").child(firebaseUser!!.uid)
         databaseReference!!.setValue(fireBaseModel)
     }
 
@@ -118,30 +124,44 @@ class FirebaseAddUserFragment : Fragment() {
 
 
     private fun profileImage() {
+        getProfile()
         dataBinding.ciProfile.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            startActivityForResult(intent, 200)
+            resultLauncher.launch(intent)
+//            startActivityForResult(intent, 200)
         }
     }
 
+    private fun getProfile() {
+        resultLauncher=registerForActivityResult(ActivityResultContracts.StartActivityForResult(),
+            ActivityResultCallback<ActivityResult>(){
+                var data:Intent= it.data!!
+                if (data !=null){
+                    profile=data.data
+                    dataBinding.ciProfile.setImageURI(profile)
+                }
+            }
+        )
+    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 200 && resultCode == AppCompatActivity.RESULT_OK) {
             profile = data?.data
             dataBinding.ciProfile.setImageURI(profile)
         }
-    }
+    }*/
 
 
     private fun gender() {
-        dataBinding.rgGender.setOnCheckedChangeListener({_, checkedId ->
+        dataBinding.rgGender.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbut_male -> genderVal = "Male"
                 R.id.rbut_female -> genderVal = "Female"
                 else -> genderVal = null.toString()
             }
-        })
+        }
     }
 }

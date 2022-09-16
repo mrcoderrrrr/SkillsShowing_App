@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoapps.R
-import com.example.demoapps.fragment.FirebaseItemListFragment
+import com.example.demoapps.fragment.firebase.FirebaseItemListFragment
 import com.example.demoapps.model.FireBaseModel
 import com.squareup.picasso.Picasso
 
